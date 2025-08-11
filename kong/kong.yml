@@ -1,0 +1,24 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: example-api
+    url: http://httpbin.org/anything
+    routes:
+      - name: example-route
+        paths: ["/api"]
+
+plugins:
+  - name: openid-connect
+    config:
+      issuer: "http://localhost:4444"             # Hydra public URL
+      client_id: "kong"
+      client_secret: "kong-secret"
+      scopes: ["openid","offline","profile","email"]
+      auth_methods: ["authorization_code"]
+      redirect_uris:
+        - "http://localhost:8000/callback"        # Kong callback
+      session_secret: "please-change-me"
+      consumer_claim: "sub"
+      verify_parameters: true
+      access_token_jwt_assertion: false

@@ -1,0 +1,53 @@
+version: v0.13.0
+
+dsn: ${DSN}
+
+serve:
+  public:
+    base_url: http://localhost:4433/
+    cors:
+      enabled: true
+  admin:
+    base_url: http://kratos:4434/
+
+selfservice:
+  default_browser_return_url: http://localhost:3000/
+  flows:
+    login:
+      ui_url: http://localhost:3000/login
+    registration:
+      ui_url: http://localhost:3000/registration
+    settings:
+      ui_url: http://localhost:3000/settings
+    recovery:
+      ui_url: http://localhost:3000/recovery
+    verification:
+      ui_url: http://localhost:3000/verification
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: google
+            provider: google
+            client_id: TODO
+            client_secret: TODO
+            mapper_url: file:///etc/config/kratos/mappers/google.jsonnet
+            scope:
+              - email
+              - profile
+
+identity:
+  default_schema_id: default
+  schemas:
+    - id: default
+      url: file:///etc/config/kratos/identity.schema.json
+
+courier:
+  smtp:
+    connection_uri: smtps://user:pass@smtp.example.com:465/?skip_ssl_verify=true
+# En dev, tu peux remplacer par:
+# courier:
+#   smtp:
+#     from_address: "noreply@example.com"
+#     provider: "noop"   # pas d'envoi réel (dev)

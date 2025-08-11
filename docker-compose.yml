@@ -1,0 +1,116 @@
+version: "3.9"
+
+services:
+  # ---------- ORY DATABASE ----------
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ory
+      POSTGRES_PASSWORD: ory
+    ports: [ "5432:5432" ]
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ory" ]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  # ---------- ORY KRATOS ----------
+  kratos-migrate:
+    image: oryd/kratos:v1.3.1
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: [ "migrate", "sql", "up", "-e", "--yes" ]
+    environment:
+      DSN: postgres://ory:ory@postgres:5432/kratos?sslmode=disable&max_conns=20&max_conn_lifetime=5m
+    volumes:
+      - ./kratos/kratos.yml:/etc/config/kratos/kratos.yml:ro
+      - ./kratos/identity.schema.json:/etc/config/kratos/identity.schema.json:ro
+      - ./kratos/mappers:/etc/config/kratos/mappers:ro
+
+  kratos:
+    image: oryd/kratos:v1.3.1
+    depends_on:
+      kratos-migrate:
+        condition: service_completed_successfully
+    command: [ "serve", "--dev", "--config", "/etc/config/kratos/kratos.yml" ]
+    environment:
+      DSN: postgres://ory:ory@postgres:5432/kratos?sslmode=disable&max_conns=20&max_conn_lifetime=5m
+    ports:
+      - "4433:4433" # public
+      - "4434:4434" # admin
+    volumes:
+      - ./kratos/kratos.yml:/etc/config/kratos/kratos.yml:ro
+      - ./kratos/identity.schema.json:/etc/config/kratos/identity.schema.json:ro
+      - ./kratos/mappers:/etc/config/kratos/mappers:ro
+
+  kratos-ui:
+    image: oryd/kratos-selfservice-ui-node:v1.3.1
+    depends_on: [kratos]
+    environment:
+      KRATOS_PUBLIC_URL: http://kratos:4433/
+      KRATOS_BROWSER_URL: http://localhost:4433/
+      PORT: 3000
+      COOKIE_SECRET: supersecretcookie   # ≥ 8 caractères alphanum
+      CSRF_COOKIE_NAME: __Host-kratos_csrf
+      CSRF_COOKIE_SECRET: supersecretcsrf # ≥ 8 caractères alphanum
+    ports: [ "3000:3000" ]
+
+  # ---------- ORY HYDRA ----------
+  hydra-migrate:
+    image: oryd/hydra:v2.3.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: [ "migrate", "sql", "up", "-e", "--yes" ]
+    environment:
+      DSN: postgres://ory:ory@postgres:5432/hydra?sslmode=disable&max_conns=20&max_conn_lifetime=5m
+
+  hydra:
+    image: oryd/hydra:v2.3.0
+    depends_on:
+      hydra-migrate:
+        condition: service_completed_successfully
+    command: [ "serve", "all", "--dev", "--config", "/etc/config/hydra/hydra.yml" ]
+    environment:
+      DSN: postgres://ory:ory@postgres:5432/hydra?sslmode=disable&max_conns=20&max_conn_lifetime=5m
+      # Access tokens en JWT (sinon tokens opaques)
+      OAUTH2_ACCESS_TOKEN_STRATEGY: jwt
+      # TTLs (adapte selon ton besoin)
+      TTL_ACCESS_TOKEN: 1h
+      TTL_REFRESH_TOKEN: 720h   # 30 jours
+    volumes:
+      - ./hydra/hydra.yml:/etc/config/hydra/hydra.yml:ro
+    ports:
+      - "4444:4444" # public (JWKS ici)
+      - "4445:4445" # admin
+
+  # App Login & Consent de référence (relie Hydra à Kratos)
+  hydra-login-consent:
+    image: oryd/hydra-login-consent-node:v2.3.0
+    depends_on: [hydra, kratos]
+    environment:
+      HYDRA_ADMIN_URL: http://hydra:4445
+      PORT: 3001
+      # Ces URL sont exposées à Hydra pour rediriger l’utilisateur
+      URLS_SELF_ISSUER: http://localhost:4444
+      URLS_LOGIN: http://localhost:3001/login
+      URLS_CONSENT: http://localhost:3001/consent
+      # On s'appuie sur la session Kratos côté navigateur
+      KRATOS_PUBLIC_URL: http://localhost:4433
+    ports: [ "3001:3001" ]
+
+  # ---------- KONG ----------
+#  kong:
+#    image: kong:3.9.1
+#    depends_on: [hydra]
+#    environment:
+#      KONG_DATABASE: "off"
+#      KONG_DECLARATIVE_CONFIG: /kong/kong.yml
+#      KONG_PROXY_LISTEN: "0.0.0.0:8000, 0.0.0.0:8443 ssl"
+#      KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+#    volumes:
+#      - ./kong/kong.yml:/kong/kong.yml:ro
+#    ports: ["8000:8000","8443:8443","8001:8001"]

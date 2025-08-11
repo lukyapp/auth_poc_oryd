@@ -1,0 +1,26 @@
+serve:
+  # Pas de host/port/endpoint ici → on garde les ports par défaut (:4444 / :4445)
+  public:
+    cors:
+      enabled: true
+      allowed_origins: ["http://localhost:3000", "http://localhost:5173"]
+      allowed_methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
+      allowed_headers: ["Authorization", "Content-Type"]
+      exposed_headers: ["Content-Type"]
+  admin:
+    cors:
+      enabled: true
+      allowed_origins: ["http://localhost:3001"]
+      allowed_methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
+      allowed_headers: [ "Authorization", "Content-Type" ]
+      exposed_headers: [ "Content-Type" ]
+
+  cookies:
+    same_site_mode: Lax   # ou None en prod HTTPS si besoin d’embed/iframe
+
+urls:
+  self:
+    issuer: http://localhost:4444
+  login: http://localhost:3001/login
+  consent: http://localhost:3001/consent
+  logout: http://localhost:3001/logout
