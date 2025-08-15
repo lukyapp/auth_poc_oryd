@@ -75,7 +75,7 @@ services:
     environment:
       DSN: ${KRATOS_DSN}
       # oauth
-      OAUTH2_PROVIDER_URL: http://hydra:4445
+      OAUTH2_PROVIDER_URL: ${HYDRA_INTERNAL_ADMIN_URL}
       # oauth providers
       # google oauth provider
       SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS_0_CLIENT_ID: ${KRATOS_OAUTH_GOOGLE_CLIENT_ID}
@@ -142,13 +142,15 @@ services:
     depends_on: [ kratos ]
     environment:
       PORT: 3000
-      KRATOS_PUBLIC_URL: http://kratos:4433/
-      KRATOS_BROWSER_URL: http://localhost:4433/
-      HYDRA_ADMIN_URL: http://hydra:4445/
-
-      COOKIE_SECRET: ${KRATOS_UI_COOKIE_SECRET}
-      CSRF_COOKIE_NAME: __Host-kratos_csrf
-      CSRF_COOKIE_SECRET: ${KRATOS_UI_CSRF_SECRET}
+      # Ory Identities (Kratos) requires the following variables to be set:
+      KRATOS_PUBLIC_URL: ${KRATOS_INTERNAL_PUBLIC_URL}
+      KRATOS_ADMIN_URL: ${KRATOS_INTERNAL_ADMIN_URL}
+      KRATOS_BROWSER_URL: ${KRATOS_EXTERNAL_PUBLIC_URL}
+      # Ory OAuth2 (Hydra) requires more setup to get CSRF cookies on the /consent endpoint.
+      HYDRA_ADMIN_URL: ${HYDRA_INTERNAL_ADMIN_URL}
+      COOKIE_SECRET: ${COOKIE_SECRET}
+      CSRF_COOKIE_NAME: ${CSRF_COOKIE_NAME}
+      CSRF_COOKIE_SECRET: ${CSRF_COOKIE_SECRET}
     ports:
       - "3000:3000"
 
