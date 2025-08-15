@@ -5,37 +5,28 @@ dsn: ${DSN}
 serve:
   public:
     base_url: http://localhost:4433/
-    cors:
-      enabled: true
   admin:
     base_url: http://kratos:4434/
 
 selfservice:
-  default_browser_return_url: http://localhost:3000/
-  flows:
-    login:
-      ui_url: http://localhost:3000/login
-    registration:
-      ui_url: http://localhost:3000/registration
-    settings:
-      ui_url: http://localhost:3000/settings
-    recovery:
-      ui_url: http://localhost:3000/recovery
-    verification:
-      ui_url: http://localhost:3000/verification
   methods:
+    password:
+      enabled: true
     oidc:
       enabled: true
       config:
         providers:
           - id: google
             provider: google
-            client_id: TODO
-            client_secret: TODO
+#            client_id: ${SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS_0_CLIENT_ID}
+#            client_secret: ${SELFSERVICE_METHODS_OIDC_CONFIG_PROVIDERS_0_CLIENT_SECRET}
             mapper_url: file:///etc/config/kratos/mappers/google.jsonnet
             scope:
               - email
               - profile
+  allowed_return_urls:
+    - http://localhost:4444/
+    - http://127.0.0.1:4444/
 
 identity:
   default_schema_id: default
@@ -43,11 +34,12 @@ identity:
     - id: default
       url: file:///etc/config/kratos/identity.schema.json
 
-courier:
-  smtp:
-    connection_uri: smtps://user:pass@smtp.example.com:465/?skip_ssl_verify=true
-# En dev, tu peux remplacer par:
-# courier:
-#   smtp:
-#     from_address: "noreply@example.com"
-#     provider: "noop"   # pas d'envoi réel (dev)
+oauth2_provider:
+#  url: ${OAUTH2_PROVIDER_URL}
+  override_return_to: true
+
+#courier:
+#  smtp:
+#    connection_uri: smtps://user:pass@smtp.example.com:465/?skip_ssl_verify=true
+#    from_address: "noreply@example.com"
+#    provider: "noop"   # pas d'envoi réel (dev)

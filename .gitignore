@@ -141,4 +141,5 @@ vite.config.ts.timestamp-*
 # IDE
 .idea
 # database volumes
-postgres
+kratos-postgres/data
+hydra-postgres/data
