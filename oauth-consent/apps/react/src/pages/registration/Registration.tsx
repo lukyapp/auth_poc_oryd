@@ -49,5 +49,11 @@ export const Registration = () => {
         return <div>Flow not found</div>
     }
 
-    return <OryRegistration flow={flow} config={oryConfiguration} />
+    return (
+        <>
+            <div className="bg-gray-100 p-4">Test Tailwind</div>
+            <div className="bg-red-400 p-4">Test Tailwind</div>
+            <OryRegistration flow={flow} config={oryConfiguration} />
+        </>
+    )
 };

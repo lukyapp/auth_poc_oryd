@@ -74,13 +74,13 @@ export function rewriteJsonResponse<T extends object>(
   ) as T;
 }
 
-export const clientSideFrontendClient = () =>
+export const clientSideFrontendClient = (sdkUrl?: string) =>
   new FrontendApi(
     new Configuration({
       headers: {
         Accept: 'application/json',
       },
       credentials: 'include',
-      basePath: orySdkUrl(),
+      basePath: sdkUrl ?? orySdkUrl(),
     }),
   );
