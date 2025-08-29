@@ -1,14 +1,14 @@
 import { FlowType } from '@ory/client-fetch';
+import {sdk} from "../pages/utils/sdk";
 import { createUseFlowFactory } from './create-use-flow-factory';
-import { clientSideFrontendClient } from './utils';
 
 export const useSettingsFlow = createUseFlowFactory(
   FlowType.Settings,
   (params: URLSearchParams) => {
-    return clientSideFrontendClient().createBrowserSettingsFlowRaw({
+    return sdk.frontend.createBrowserSettingsFlowRaw({
       returnTo: params.get('return_to') ?? undefined,
       cookie: params.get('cookie') ?? undefined,
     });
   },
-  (id) => clientSideFrontendClient().getSettingsFlowRaw({ id }),
+  (id) => sdk.frontend.getSettingsFlowRaw({ id }),
 );

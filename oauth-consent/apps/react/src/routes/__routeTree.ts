@@ -1,15 +1,24 @@
-import { rootRoute } from './__root';
-import { authLayout } from './layout/auth.layout';
-import { loginRoute } from './login';
-import { recoveryRoute } from './recovery';
-import { registrationRoute } from './registration';
-import { settingsRoute } from './settings';
-import { verificationRoute } from './verification';
+import {rootRoute} from './__root';
+import {consentRoute} from "./consent";
+import {deviceDoneRoute} from "./devise-done";
+import {deviceVerificationRoute} from "./devise-verification";
+import {errorRoute} from "./error";
+import {loginRoute} from './login';
+import {logoutRoute} from "./logout";
+import {logoutSuccessfulRoute} from "./logout-successful";
+import {recoveryRoute} from './recovery';
+import {registrationRoute} from './registration';
+import {settingsRoute} from './settings';
 
 export const routeTree = rootRoute.addChildren([
-  authLayout.addChildren([loginRoute]),
-  registrationRoute,
-  recoveryRoute,
-  settingsRoute,
-  verificationRoute,
+    loginRoute,
+    registrationRoute,
+    consentRoute,
+    logoutRoute,
+    deviceVerificationRoute,
+    deviceDoneRoute,
+    errorRoute,
+    logoutSuccessfulRoute,
+    settingsRoute,
+    recoveryRoute,
 ]);

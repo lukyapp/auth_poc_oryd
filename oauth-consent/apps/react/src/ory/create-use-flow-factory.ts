@@ -26,9 +26,10 @@ export function createUseFlowFactory<T extends Flow>(
 ): () => T | null | void {
   return () => {
     const [flow, setFlow] = useState<T>();
-    // const router = useRouter()
     const { replace } = useReplace();
     const searchParams = useUrlSearchParams();
+    const flowId = searchParams.get('flow');
+
     const onRestartFlow = handleRestartFlow(searchParams, flowType);
     const onRedirect = useOnRedirect();
 
@@ -47,13 +48,11 @@ export function createUseFlowFactory<T extends Flow>(
         return;
       };
 
-      const id = searchParams.get('flow');
-
       if (flow !== undefined) {
         return;
       }
 
-      if (!id) {
+      if (!flowId) {
         createFlow(searchParams)
           .then(toValue)
           .then(handleSetFlow)
@@ -61,8 +60,8 @@ export function createUseFlowFactory<T extends Flow>(
         return;
       }
 
-      getFlow(id).then(toValue).then(handleSetFlow).catch(errorHandler);
-    }, [searchParams, flow, errorHandler, replace]);
+      getFlow(flowId).then(toValue).then(handleSetFlow).catch(errorHandler);
+    }, [searchParams, flow, flowId, errorHandler, replace]);
 
     return flow;
   };

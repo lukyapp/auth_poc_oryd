@@ -9,7 +9,7 @@ export const useReplace = () => {
   const navigate = useNavigate();
 
   const replace = ({ to, query }: ReplaceOptions = {}) => {
-    console.log(`Replace to ${to}`);
+    console.log(`Replace to ${to ?? 'current page'}`);
     // window.location.replace(to)
     return navigate({
       to,

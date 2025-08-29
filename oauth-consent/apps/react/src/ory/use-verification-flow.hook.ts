@@ -1,13 +1,13 @@
 import { FlowType } from '@ory/client-fetch';
+import {sdk} from "../pages/utils/sdk";
 import { createUseFlowFactory } from './create-use-flow-factory';
-import { clientSideFrontendClient } from './utils';
 
 export const useVerificationFlow = createUseFlowFactory(
   FlowType.Verification,
   (params: URLSearchParams) => {
-    return clientSideFrontendClient().createBrowserVerificationFlowRaw({
+    return sdk.frontend.createBrowserVerificationFlowRaw({
       returnTo: params.get('return_to') ?? undefined,
     });
   },
-  (id) => clientSideFrontendClient().getVerificationFlowRaw({ id }),
+  (id) => sdk.frontend.getVerificationFlowRaw({ id }),
 );

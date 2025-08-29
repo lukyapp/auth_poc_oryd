@@ -1,12 +1,12 @@
 import type { LogoutFlow } from '@ory/client-fetch';
 import { useEffect, useState } from 'react';
-import { clientSideFrontendClient } from './utils';
+import {sdk} from "../pages/utils/sdk";
 
 export function useLogoutFlow() {
   const [flow, setFlow] = useState<LogoutFlow | undefined>(undefined);
 
   const createFlow = async () => {
-    const flow = await clientSideFrontendClient().createBrowserLogoutFlow({});
+    const flow = await sdk.frontend.createBrowserLogoutFlow({});
     setFlow(flow);
   };
 

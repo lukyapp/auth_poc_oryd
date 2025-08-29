@@ -1,11 +1,11 @@
 import { FlowType } from '@ory/client-fetch';
+import {sdk} from "../pages/utils/sdk";
 import { createUseFlowFactory } from './create-use-flow-factory';
-import { clientSideFrontendClient } from './utils';
 
 export const useRegistrationFlow = createUseFlowFactory(
   FlowType.Registration,
   (params: URLSearchParams) => {
-    return clientSideFrontendClient().createBrowserRegistrationFlowRaw({
+    return sdk.frontend.createBrowserRegistrationFlowRaw({
       returnTo: params.get('return_to') ?? undefined,
       loginChallenge: params.get('registration_challenge') ?? undefined,
       afterVerificationReturnTo:
@@ -13,5 +13,5 @@ export const useRegistrationFlow = createUseFlowFactory(
       organization: params.get('organization') ?? undefined,
     });
   },
-  (id) => clientSideFrontendClient().getRegistrationFlowRaw({ id }),
+  (id) => sdk.frontend.getRegistrationFlowRaw({ id }),
 );

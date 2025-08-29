@@ -1,11 +1,11 @@
 import { FlowType } from '@ory/client-fetch';
+import {sdk} from "../pages/utils/sdk";
 import { createUseFlowFactory } from './create-use-flow-factory';
-import { clientSideFrontendClient } from './utils';
 
 export const useLoginFlow = createUseFlowFactory(
   FlowType.Login,
   (params: URLSearchParams) => {
-    return clientSideFrontendClient().createBrowserLoginFlowRaw({
+    return sdk.frontend.createBrowserLoginFlowRaw({
       refresh: params.get('refresh') === 'true',
       aal: params.get('aal') ?? undefined,
       returnTo: params.get('return_to') ?? undefined,
@@ -15,5 +15,5 @@ export const useLoginFlow = createUseFlowFactory(
       via: params.get('via') ?? undefined,
     });
   },
-  (id) => clientSideFrontendClient().getLoginFlowRaw({ id }),
+  (id) => sdk.frontend.getLoginFlowRaw({ id }),
 );
