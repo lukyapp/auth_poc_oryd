@@ -1,5 +1,5 @@
 import { FlowType } from '@ory/client-fetch';
-import {sdk} from "../pages/utils/sdk";
+import { sdk } from '../pages/utils/sdk';
 import { createUseFlowFactory } from './create-use-flow-factory';
 
 export const useSettingsFlow = createUseFlowFactory(
