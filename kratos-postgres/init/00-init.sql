@@ -1,1 +1,1 @@
-CREATE DATABASE kratos OWNER ory;
+-- CREATE DATABASE kratos OWNER ory;

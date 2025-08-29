@@ -1,4 +1,9 @@
 serve:
+#  public:
+#    cors:
+#      enabled: true
+#      allowed_origins:
+#        - http://localhost:5173
   cookies:
     same_site_mode: Lax   # ou None en prod HTTPS si besoin d’embed/iframe
 

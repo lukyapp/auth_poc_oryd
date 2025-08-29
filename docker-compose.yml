@@ -5,10 +5,13 @@ services:
   kratos-postgres:
     image: postgres:16-alpine
     container_name: ory-kratos-postgres
+    ports:
+      - "6432:5432"
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${KRATOS_POSTGRES_USER}
       POSTGRES_PASSWORD: ${KRATOS_POSTGRES_PASS}
+      POSTGRES_DB: ${KRATOS_POSTGRES_DATABASE}
     volumes:
       - ./kratos-postgres/data:/var/lib/postgresql/data
       - ./kratos-postgres/init:/docker-entrypoint-initdb.d:ro
@@ -21,10 +24,13 @@ services:
   hydra-postgres:
     image: postgres:16-alpine
     container_name: ory-hydra-postgres
+    ports:
+      - "7432:5432"
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${HYDRA_POSTGRES_USER}
       POSTGRES_PASSWORD: ${HYDRA_POSTGRES_PASS}
+      POSTGRES_DB: ${HYDRA_DB}
     volumes:
       - ./hydra-postgres/data:/var/lib/postgresql/data
       - ./hydra-postgres/init:/docker-entrypoint-initdb.d:ro
@@ -89,6 +95,10 @@ services:
       SELFSERVICE_FLOWS_ERROR_UI_URL: ${OAUTH_UI_APP_ERROR_URL}
       SELFSERVICE_FLOWS_SETTINGS_UI_URL: ${OAUTH_UI_APP_SETTINGS_URL}
       SELFSERVICE_FLOWS_RECOVERY_UI_URL: ${OAUTH_UI_APP_RECOVERY_URL}
+
+      # cors
+      SERVE_PUBLIC_CORS_ENABLED: true
+      SERVE_PUBLIC_CORS_ALLOWED_ORIGINS: ${OAUTH_UI_APP_BASE_URL}
     ports:
       - "4433:4433"   # public -> host
     expose:
@@ -126,13 +136,19 @@ services:
       URLS_DEVISE_SUCCESS: ${OAUTH_UI_APP_DEVISE_SUCCESS_URL}
       URLS_ERROR: ${OAUTH_UI_APP_ERROR_URL}
       URLS_POST_LOGOUT_REDIRECT: ${OAUTH_UI_APP_LOGOUT_SUCCESSFUL_URL}
+#      LOG_LEAK_SENSITIVE_VALUES: true
+
+      # cors
+      SERVE_PUBLIC_CORS_ENABLED: true
+      SERVE_PUBLIC_CORS_ALLOWED_ORIGINS: ${OAUTH_UI_APP_BASE_URL}
     volumes:
       - ./hydra/hydra.yml:/etc/config/hydra/hydra.yml:ro
     ports:
       - "4444:4444"  # public -> host (includes JWKS)
       # DO NOT expose admin (4445) to host; keep internal only
-    expose:
-      - "4445"       # admin -> internal network only
+      - "4445:4445"  # public -> host (includes JWKS)
+#    expose:
+#      - "4445"       # admin -> internal network only
 
   # ---------- ORY HYDRA ----------
   kratos-ui:

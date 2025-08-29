@@ -1,1 +1,1 @@
-CREATE DATABASE hydra OWNER ory;
+-- CREATE DATABASE hydra OWNER ory;

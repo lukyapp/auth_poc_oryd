@@ -5,8 +5,16 @@ dsn: ${DSN}
 serve:
   public:
     base_url: http://localhost:4433/
+#    cors:
+#      enabled: true
+#      allowed_origins:
+#        - http://localhost:5173
   admin:
     base_url: http://kratos:4434/
+#    cors:
+#      enabled: true
+#      allowed_origins:
+#        - http://localhost:5173
 
 selfservice:
   methods:
