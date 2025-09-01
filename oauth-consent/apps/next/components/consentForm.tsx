@@ -1,11 +1,6 @@
 "use client";
 
-import pathConfig from "@/path.config";
-import { OAuth2ConsentRequest, Session } from "@ory/client";
-import React, { useEffect, useState } from "react";
-import { kratos } from "@/ory";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
 import {
   CardContent,
   CardDescription,
@@ -16,7 +11,10 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { useSession } from "@/components/use-session";
+import { OAuth2ConsentRequest } from "@ory/client";
+import Image from "next/image";
+import React, { useState } from "react";
 
 interface ConsentFormProps {
   request: OAuth2ConsentRequest;
@@ -29,23 +27,11 @@ export default function ConsentForm({
   onAccept,
   onReject,
 }: ConsentFormProps) {
-  const path = pathConfig.authPath;
-
-  const router = useRouter();
-
-  const [session, setSession] = useState<Session | undefined>();
-
+  const session = useSession();
   const [remember, setRemember] = useState<boolean>(false);
   const [requestedScopes, setRequestedScopes] = useState<string[]>(
     request.requested_scope ?? [],
   );
-
-  useEffect(() => {
-    kratos
-      .toSession()
-      .then(({ data }) => setSession(data))
-      .catch(() => router.push(path.login_ui_url));
-  }, []);
 
   return (
     <>

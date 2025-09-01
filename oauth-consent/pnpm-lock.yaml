@@ -13,6 +13,9 @@ importers:
       '@ory/client':
         specifier: ^1.21.6
         version: 1.22.0
+      '@ory/client-fetch':
+        specifier: ^1.21.5
+        version: 1.22.0
       '@ory/elements-react':
         specifier: ^1.0.0
         version: 1.0.0(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)

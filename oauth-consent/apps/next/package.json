@@ -7,10 +7,10 @@
     "build": "next build --turbopack",
     "start": "next start",
     "format": "prettier --write \"app/**/*.{ts,tsx,js,json}\" \"components/**/*.{ts,tsx,js,json}\" \"lib/**/*.{ts,tsx,js,json}\" \"ory/**/*.{ts,tsx,js,json}\""
-
   },
   "dependencies": {
     "@ory/client": "^1.21.6",
+    "@ory/client-fetch": "^1.21.5",
     "@ory/elements-react": "^1.0.0",
     "@ory/integrations": "^1.3.1",
     "@ory/nextjs": "1.0.0-rc.0",
