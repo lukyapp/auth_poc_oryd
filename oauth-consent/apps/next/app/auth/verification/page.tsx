@@ -1,6 +1,6 @@
 import CustomCardHeader from "@/components/custom-card-header";
-import { Verification } from "@ory/elements-react/theme";
-import { getVerificationFlow, OryPageParams } from "@ory/nextjs/app";
+import { Verification } from "@infra/ory/theme";
+import { getVerificationFlow, OryPageParams } from "@infra/ory/nextjs/app";
 
 import config from "@/app/auth/ory.config";
 

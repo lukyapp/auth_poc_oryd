@@ -3,8 +3,8 @@
 import config from "@/app/auth/ory.config";
 import { useCsrfToken } from "@/components/use-csrf-token";
 import { useSession } from "@/components/use-session";
+import { Consent } from "@infra/ory/theme";
 import { OAuth2ConsentRequest } from "@ory/client-fetch";
-import { Consent } from "@ory/elements-react/theme";
 import React from "react";
 
 interface ConsentFormProps {

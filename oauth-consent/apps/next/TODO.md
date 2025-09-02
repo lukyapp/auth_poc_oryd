@@ -10,3 +10,8 @@ pnpm remove clsx tailwind-merge class-variance-authority @radix-ui/react-alert-d
 ```sh
 pnpm remove @ory/client @ory/integrations axios
 ```
+
+## migrate the `infra ory` to a `domain infra ory lib` to be not related to the nextJs infra layer
+```sh
+pnpm remove usehooks-ts react-hook-form
+```

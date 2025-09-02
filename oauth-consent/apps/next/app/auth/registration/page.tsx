@@ -1,5 +1,5 @@
-import { Registration } from "@ory/elements-react/theme";
-import { getRegistrationFlow, OryPageParams } from "@ory/nextjs/app";
+import { Registration } from "@infra/ory/theme";
+import { getRegistrationFlow, OryPageParams } from "@infra/ory/nextjs/app";
 
 import config from "@/app/auth/ory.config";
 

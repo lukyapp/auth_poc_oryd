@@ -1,11 +1,9 @@
-"use server";
-
-import { Settings } from "@ory/elements-react/theme";
-import { SessionProvider } from "@ory/elements-react/client";
-import { getSettingsFlow, OryPageParams } from "@ory/nextjs/app";
+import { Settings } from "@infra/ory/theme";
+import { getSettingsFlow, OryPageParams } from "@infra/ory/nextjs/app";
 import "@ory/elements-react/theme/styles.css";
 
 import config from "@/app/auth/ory.config";
+import { SessionProvider } from "@infra/ory/client";
 
 export default async function SettingsPage(props: OryPageParams) {
   const flow = await getSettingsFlow(config, props.searchParams);
@@ -16,15 +14,15 @@ export default async function SettingsPage(props: OryPageParams) {
 
   return (
     <div className="flex flex-col gap-8 items-center mb-8">
-      <SessionProvider>
-        <Settings
-          flow={flow}
-          config={config}
-          components={{
-            Card: {},
-          }}
-        />
-      </SessionProvider>
+      {/*<SessionProvider>*/}
+      <Settings
+        flow={flow}
+        config={config}
+        components={{
+          Card: {},
+        }}
+      />
+      {/*</SessionProvider>*/}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import pathConfig from "@/path.config";
-import type { OryClientConfiguration } from "@ory/elements-react";
+import { OryClientConfiguration } from "@infra/ory";
 
 const path = pathConfig.authPath;
 const config: OryClientConfiguration = {

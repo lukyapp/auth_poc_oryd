@@ -1,5 +1,5 @@
-import { Recovery } from "@ory/elements-react/theme";
-import { getRecoveryFlow, OryPageParams } from "@ory/nextjs/app";
+import { getRecoveryFlow, OryPageParams } from "@infra/ory/nextjs/app";
+import { Recovery } from "@infra/ory/theme";
 import CustomCardHeader from "@/components/custom-card-header";
 
 import config from "@/app/auth/ory.config";

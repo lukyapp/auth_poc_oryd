@@ -19,9 +19,22 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@infra/ory": ["./infra/ory/src/index.ts"],
+      "@infra/ory/theme": ["./infra/ory/src/theme/default/index.ts"],
+      "@infra/ory/client": ["./infra/ory/src/client/index.ts"],
+      "@infra/ory/nextjs/app": ["./infra/nextjs/src/app/index.ts"],
+      "@infra/ory/nextjs/middleware": ["./infra/nextjs/src/middleware/index.ts"],
+      "@infra/ory/nextjs/pages": ["./infra/nextjs/src/pages/index.ts"],
+      "@infra/ory/nextjs/utils": ["./infra/nextjs/src/utils/index.ts"],
+      "@/*": ["./*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "./infra/ory/src/theme/default/assets/global.d.ts",
+  ],
   "exclude": ["node_modules"]
 }

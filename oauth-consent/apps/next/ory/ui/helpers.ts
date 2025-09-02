@@ -1,3 +1,5 @@
+"use client"
+
 import { UiNode, UiNodeInputAttributes } from "@ory/client";
 import { FormEvent, MouseEvent, useEffect } from "react";
 

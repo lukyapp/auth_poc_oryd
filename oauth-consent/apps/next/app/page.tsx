@@ -1,10 +1,10 @@
 import pathConfig from "@/path.config";
-import { SessionProvider } from "@ory/elements-react/client";
-import { getLogoutFlow, getServerSession } from "@ory/nextjs/app";
+import { getLogoutFlow, getServerSession } from "@infra/ory/nextjs/app";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import OryLogo from "./logo.svg";
+import { SessionProvider } from "@infra/ory/client";
 
 export const metadata: Metadata = {
   title: "Ory Next.js App router Example",
@@ -24,7 +24,8 @@ export default async function RootLayout() {
     <SessionProvider session={session}>
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="flex flex-col items-center gap-4">
-          <Image src={OryLogo as string} alt="Ory Logo" width={160} />
+            {/*<Image src={OryLogo as string} alt="Ory Logo" width={160} />*/}
+            <OryLogo alt="Ory Logo" width={160} />
           <h1 className="font-bold text-xl">Ory Next.js App Router Example</h1>
           {!session && (
             <div className="flex items-center gap-2 bg-white rounded-sm border flex-col w-60 p-3">
