@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { kratos } from "@/ory";
-import pathConfig from "@/path.config";
-import { Session } from "@ory/client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { kratos } from '@/ory';
+import pathConfig from '@/path.config';
+import { type Session } from '@ory/client';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export function useSession() {
   const path = pathConfig.authPath;

@@ -1,24 +1,24 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client";
+'use client';
 
-import { useFormContext } from "react-hook-form"
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "./shadcn/otp-input"
-import { OryNodeInputProps, useOryFlow } from "@infra/ory"
-import { FlowType } from "@ory/client-fetch"
-import { cn } from "../../utils/cn"
+import { useFormContext } from 'react-hook-form';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from './shadcn/otp-input';
+import { type OryNodeInputProps, useOryFlow } from '@infra/ory';
+import { FlowType } from '@ory/client-fetch';
+import { cn } from '../../utils/cn';
 
 export const DefaultPinCodeInput = ({ attributes }: OryNodeInputProps) => {
-  const { setValue, watch } = useFormContext()
-  const { maxlength, name } = attributes
-  const elements = maxlength ?? 6
-  const { flowType } = useOryFlow()
+  const { setValue, watch } = useFormContext();
+  const { maxlength, name } = attributes;
+  const elements = maxlength ?? 6;
+  const { flowType } = useOryFlow();
 
   const handleInputChange = (v: string) => {
-    setValue(name, v)
-  }
+    setValue(name, v);
+  };
 
-  const value = watch(name) as string
+  const value = watch(name) as string;
 
   return (
     <InputOTP
@@ -29,15 +29,18 @@ export const DefaultPinCodeInput = ({ attributes }: OryNodeInputProps) => {
     >
       <InputOTPGroup
         className={cn(
-          "flex w-full justify-stretch gap-2",
+          'flex w-full justify-stretch gap-2',
           // The settings flow input fields are supposed to be dense, so we don't need the extra padding we want on the user flows.
-          flowType === FlowType.Settings && "max-w-[488px]",
+          flowType === FlowType.Settings && 'max-w-[488px]',
         )}
       >
         {[...Array(elements)].map((_, index) => (
-          <InputOTPSlot index={index} key={index} />
+          <InputOTPSlot
+            index={index}
+            key={index}
+          />
         ))}
       </InputOTPGroup>
     </InputOTP>
-  )
-}
+  );
+};

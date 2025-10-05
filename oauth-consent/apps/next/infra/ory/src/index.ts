@@ -7,8 +7,8 @@
  * @packageDocumentation
  * @module core
  */
-export type * from "./types"
-export * from "./components"
-export * from "./context"
-export * from "./util"
-export { OryLocales } from "./locales"
+export type * from './types';
+export * from './components';
+export * from './context';
+export * from './util';
+export { OryLocales } from './locales';

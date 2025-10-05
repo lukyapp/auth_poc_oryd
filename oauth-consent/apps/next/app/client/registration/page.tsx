@@ -1,22 +1,16 @@
-"use client";
+'use client';
 
-import pathConfig from "@/path.config";
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Flow, HandleError, kratos } from "@/ory";
-import Link from "next/link";
-import { RegistrationFlow, UpdateRegistrationFlowBody } from "@ory/client";
-import { AxiosError } from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
+import pathConfig from '@/path.config';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Flow, HandleError, kratos } from '@/ory';
+import Link from 'next/link';
+import { type RegistrationFlow, type UpdateRegistrationFlowBody } from '@ory/client';
+import { type AxiosError } from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 export default function Registration() {
   const path = pathConfig.clientPath;
@@ -26,8 +20,8 @@ export default function Registration() {
   const router = useRouter();
   const params = useSearchParams();
 
-  const flowId = params.get("flow") ?? undefined;
-  const returnTo = params.get("return_to") ?? undefined;
+  const flowId = params.get('flow') ?? undefined;
+  const returnTo = params.get('return_to') ?? undefined;
 
   const getFlow = useCallback((flowId: string) => {
     return kratos
@@ -38,13 +32,7 @@ export default function Registration() {
 
   const handleError = useCallback(
     (error: AxiosError) => {
-      const handle = HandleError(
-        getFlow,
-        setFlow,
-        path.registration_ui_url,
-        true,
-        router,
-      );
+      const handle = HandleError(getFlow, setFlow, path.registration_ui_url, true, router);
       return handle(error);
     },
     [getFlow],
@@ -73,13 +61,13 @@ export default function Registration() {
         if (data.continue_with) {
           for (const item of data.continue_with) {
             switch (item.action) {
-              case "show_verification_ui":
+              case 'show_verification_ui':
                 router.push(`${path.verification_ui_url}?flow=` + item.flow.id);
                 return;
             }
           }
         }
-        router.push(flow?.return_to || "/");
+        router.push(flow?.return_to || '/');
       })
       .catch(handleError);
   };
@@ -114,7 +102,10 @@ export default function Registration() {
       </CardHeader>
       <CardContent className="w-full">
         {flow ? (
-          <Flow flow={flow} onSubmit={updateFlow} />
+          <Flow
+            flow={flow}
+            onSubmit={updateFlow}
+          />
         ) : (
           <div className="flex flex-col space-y-4 mt-5">
             <div className="flex flex-col space-y-2">
@@ -136,7 +127,11 @@ export default function Registration() {
         )}
       </CardContent>
       {flow ? (
-        <Button variant="link" asChild disabled={!flow}>
+        <Button
+          variant="link"
+          asChild
+          disabled={!flow}
+        >
           <Link
             href={{
               pathname: path.login_ui_url,

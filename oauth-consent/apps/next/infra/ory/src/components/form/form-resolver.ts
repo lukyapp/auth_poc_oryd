@@ -1,13 +1,13 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { useOryFlow } from "../../context"
-import { FormValues } from "../../types"
-import { isUiNodeInputAttributes } from "@ory/client-fetch"
+import { useOryFlow } from '../../context';
+import { type FormValues } from '../../types';
+import { isUiNodeInputAttributes } from '@ory/client-fetch';
 
 function isCodeResendRequest(data: FormValues) {
   // There are two types of resend - one
-  return data.email ?? data.resend
+  return data.email ?? data.resend;
 }
 
 /**
@@ -18,15 +18,15 @@ function isCodeResendRequest(data: FormValues) {
  * @returns a react-hook-form resolver for the Ory form
  */
 export function useOryFormResolver() {
-  const flowContainer = useOryFlow()
+  const flowContainer = useOryFlow();
 
   return (data: FormValues) => {
-    if (flowContainer.formState.current === "method_active") {
+    if (flowContainer.formState.current === 'method_active') {
       // This is a workaround which prevents the flow from being submitted without a code,
       // which in some cases can cause issues in Ory Kratos' resend detection.
       if (
         // When we submit a code
-        data.method === "code" &&
+        data.method === 'code' &&
         // And the code is not present
         !data.code &&
         // And the flow is not a code resend request
@@ -34,14 +34,10 @@ export function useOryFormResolver() {
         // And the flow has a code input node
         flowContainer.flow.ui.nodes.find(({ attributes, group }) => {
           if (!isUiNodeInputAttributes(attributes)) {
-            return false
+            return false;
           }
 
-          return (
-            group === "code" &&
-            attributes.name === "code" &&
-            attributes.type !== "hidden"
-          )
+          return group === 'code' && attributes.name === 'code' && attributes.type !== 'hidden';
         })
       ) {
         return {
@@ -51,18 +47,18 @@ export function useOryFormResolver() {
             code: {
               id: 4000002,
               context: {
-                property: "code",
+                property: 'code',
               },
-              type: "error",
-              text: "Property code is missing",
+              type: 'error',
+              text: 'Property code is missing',
             },
           },
-        }
+        };
       }
     }
     return {
       values: data,
       errors: {},
-    }
-  }
+    };
+  };
 }

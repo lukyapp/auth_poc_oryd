@@ -1,84 +1,70 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client";
+'use client';
 
-import {
-  UiNode,
-  UiNodeAttributes,
-  UiNodeInputAttributes,
-} from "@ory/client-fetch"
-import { useFormContext } from "react-hook-form"
-import { useIntl } from "react-intl"
-import { useComponents } from "../../context"
-import { triggerToWindowCall } from "../../util/ui"
-import { Node } from "../form/nodes/node"
+import { type UiNode, type UiNodeAttributes, type UiNodeInputAttributes } from '@ory/client-fetch';
+import { useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+import { useComponents } from '../../context';
+import { triggerToWindowCall } from '../../util/ui';
+import { Node } from '../form/nodes/node';
 
 const getInputNode = (nodes: UiNode[]): UiNode | undefined =>
   nodes.find(
-    (node) =>
-      "name" in node.attributes &&
-      node.attributes.name === "webauthn_register_displayname",
-  )
+    (node) => 'name' in node.attributes && node.attributes.name === 'webauthn_register_displayname',
+  );
 
 const getTriggerNode = (nodes: UiNode[]): UiNode | undefined =>
   nodes.find(
-    (node) =>
-      "name" in node.attributes &&
-      node.attributes.name === "webauthn_register_trigger",
-  )
+    (node) => 'name' in node.attributes && node.attributes.name === 'webauthn_register_trigger',
+  );
 
 const getRemoveButtons = (nodes: UiNode[]): UiNode[] =>
-  nodes.filter(
-    (node) =>
-      "name" in node.attributes && node.attributes.name === "webauthn_remove",
-  )
+  nodes.filter((node) => 'name' in node.attributes && node.attributes.name === 'webauthn_remove');
 
 const getRegisterNode = (nodes: UiNode[]): UiNode | undefined =>
-  nodes.find(
-    (node) =>
-      "name" in node.attributes && node.attributes.name === "webauthn_register",
-  )
+  nodes.find((node) => 'name' in node.attributes && node.attributes.name === 'webauthn_register');
 
 interface HeadlessSettingsWebauthnProps {
-  nodes: UiNode[]
+  nodes: UiNode[];
 }
 
 export function OrySettingsWebauthn({ nodes }: HeadlessSettingsWebauthnProps) {
-  const { Card, Form } = useComponents()
-  const intl = useIntl()
-  const { setValue } = useFormContext()
+  const { Card, Form } = useComponents();
+  const intl = useIntl();
+  const { setValue } = useFormContext();
 
-  const triggerButton = getTriggerNode(nodes)
-  const inputNode = getInputNode(nodes)
-  const removeButtons = getRemoveButtons(nodes)
-  const registerNode = getRegisterNode(nodes)
+  const triggerButton = getTriggerNode(nodes);
+  const inputNode = getInputNode(nodes);
+  const removeButtons = getRemoveButtons(nodes);
+  const registerNode = getRegisterNode(nodes);
 
   if (!inputNode || !triggerButton) {
-    return null
+    return null;
   }
 
   const {
     onclick: _onClick,
     onclickTrigger,
     ...triggerAttributes
-  } = triggerButton.attributes as UiNodeInputAttributes
+  } = triggerButton.attributes as UiNodeInputAttributes;
 
   const onTriggerClick = () => {
-    triggerToWindowCall(onclickTrigger)
-  }
+    triggerToWindowCall(onclickTrigger);
+  };
   const removeWebauthnKeyHandler = (value: string) => {
     return () => {
-      setValue("webauthn_remove", value)
-      setValue("method", "webauthn")
-    }
-  }
+      setValue('webauthn_remove', value);
+      setValue('method', 'webauthn');
+    };
+  };
 
   return (
     <>
       <Card.SettingsSectionContent
-        title={intl.formatMessage({ id: "settings.webauthn.title" })}
+        title={intl.formatMessage({ id: 'settings.webauthn.title' })}
         description={intl.formatMessage({
-          id: "settings.webauthn.description",
+          id: 'settings.webauthn.description',
         })}
       >
         <Form.WebauthnSettings
@@ -91,7 +77,7 @@ export function OrySettingsWebauthn({ nodes }: HeadlessSettingsWebauthnProps) {
           removeButtons={removeButtons.map((node) => ({
             ...node,
             onClick:
-              node.attributes.node_type === "input"
+              node.attributes.node_type === 'input'
                 ? removeWebauthnKeyHandler(node.attributes.value as string)
                 : () => {},
           }))}
@@ -99,8 +85,8 @@ export function OrySettingsWebauthn({ nodes }: HeadlessSettingsWebauthnProps) {
         {registerNode && <Node node={registerNode} />}
       </Card.SettingsSectionContent>
       <Card.SettingsSectionFooter
-        text={intl.formatMessage({ id: "settings.webauthn.info" })}
+        text={intl.formatMessage({ id: 'settings.webauthn.info' })}
       ></Card.SettingsSectionFooter>
     </>
-  )
+  );
 }

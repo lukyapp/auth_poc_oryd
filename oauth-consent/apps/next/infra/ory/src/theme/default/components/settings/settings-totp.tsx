@@ -1,19 +1,19 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client"
+'use client';
 
 import {
-  UiNodeImageAttributes,
-  UiNodeInputAttributes,
-  UiNodeTextAttributes,
-} from "@ory/client-fetch"
-import { OrySettingsTotpProps, useComponents } from "@infra/ory"
-import QrCode from "../../assets/icons/qrcode.svg"
-import Trash from "../../assets/icons/trash.svg"
-import { DefaultHorizontalDivider } from "../form/horizontal-divider"
-import { useFormContext } from "react-hook-form"
-import { Spinner } from "../form/spinner"
-import { defaultInputClassName } from "../form/input"
+  type UiNodeImageAttributes,
+  type UiNodeInputAttributes,
+  type UiNodeTextAttributes,
+} from '@ory/client-fetch';
+import { type OrySettingsTotpProps, useComponents } from '@infra/ory';
+import QrCode from '../../assets/icons/qrcode.svg';
+import { TrashIcon } from '@radix-ui/react-icons';
+import { DefaultHorizontalDivider } from '../form/horizontal-divider';
+import { useFormContext } from 'react-hook-form';
+import { Spinner } from '../form/spinner';
+import { defaultInputClassName } from '../form/input';
 
 export function DefaultSettingsTotp({
   totpImage,
@@ -22,10 +22,10 @@ export function DefaultSettingsTotp({
   totpUnlink,
   onUnlink,
 }: OrySettingsTotpProps) {
-  const { Node, Card } = useComponents()
+  const { Node, Card } = useComponents();
   const {
     formState: { isSubmitting },
-  } = useFormContext()
+  } = useFormContext();
   if (totpUnlink) {
     const {
       type,
@@ -33,7 +33,7 @@ export function DefaultSettingsTotp({
       label: _ignoredLabel,
       node_type: _ignoredNodeType,
       ...buttonAttrs
-    } = totpUnlink.attributes as UiNodeInputAttributes
+    } = totpUnlink.attributes as UiNodeInputAttributes;
 
     return (
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -50,7 +50,7 @@ export function DefaultSettingsTotp({
             </p>
           </div>
           <button
-            type={type === "button" ? "button" : "submit"}
+            type={type === 'button' ? 'button' : 'submit'}
             {...buttonAttrs}
             onClick={onUnlink}
             disabled={isSubmitting}
@@ -58,15 +58,16 @@ export function DefaultSettingsTotp({
             {isSubmitting ? (
               <Spinner className="relative" />
             ) : (
-              <Trash
+              <TrashIcon
                 className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
-                size={24}
+                height={20}
+                width={20}
               />
             )}
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   if (totpImage && totpSecret && totpInput) {
@@ -97,9 +98,7 @@ export function DefaultSettingsTotp({
                 disabled
                 name="totp_secret_key"
                 type="text"
-                value={
-                  (totpSecret.attributes as UiNodeTextAttributes).text.text
-                }
+                value={(totpSecret.attributes as UiNodeTextAttributes).text.text}
                 data-testid={`ory/form/node/input/totp_secret_key`}
                 className={defaultInputClassName}
               />
@@ -116,6 +115,6 @@ export function DefaultSettingsTotp({
           </Node.Label>
         </div>
       </div>
-    )
+    );
   }
 }

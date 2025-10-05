@@ -1,6 +1,6 @@
-import config from "@/app/auth/ory.config";
-import { getLoginFlow, OryPageParams } from "@infra/ory/nextjs/app";
-import { Login } from "@infra/ory/theme";
+import config from '@/app/auth/ory.config';
+import { getLoginFlow, type OryPageParams } from '@infra/ory/nextjs/app';
+import { Login } from '@infra/ory/theme';
 
 export default async function LoginPage(props: OryPageParams) {
   const flow = await getLoginFlow(config, props.searchParams);
@@ -9,5 +9,10 @@ export default async function LoginPage(props: OryPageParams) {
     return null;
   }
 
-  return <Login config={config} flow={flow} />;
+  return (
+    <Login
+      config={config}
+      flow={flow}
+    />
+  );
 }

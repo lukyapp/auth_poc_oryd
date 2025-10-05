@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { getNodeLabel } from "@ory/integrations/ui";
+import { getNodeLabel } from '@ory/integrations/ui';
 
-import { callWebauthnFunction, NodeInputProps } from "./helpers";
-import { Button } from "@/components/ui/button";
-import React from "react";
+import { callWebauthnFunction, type NodeInputProps } from './helpers';
+import { Button } from '@/components/ui/button';
+import React from 'react';
 
 export function NodeInputButton<T>({
   node,
@@ -37,7 +37,7 @@ export function NodeInputButton<T>({
         onClick={(e) => {
           onClick(e);
         }}
-        value={attributes.value || ""}
+        value={attributes.value || ''}
         disabled={attributes.disabled || disabled}
       >
         {getNodeLabel(node)}

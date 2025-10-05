@@ -1,13 +1,12 @@
-import pathConfig from "@/path.config";
-import { getLogoutFlow, getServerSession } from "@infra/ory/nextjs/app";
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import OryLogo from "./logo.svg";
-import { SessionProvider } from "@infra/ory/client";
+import pathConfig from '@/path.config';
+import { getLogoutFlow, getServerSession } from '@infra/ory/nextjs/app';
+import { type Metadata } from 'next';
+import Link from 'next/link';
+import OryLogo from './logo.svg';
+import { SessionProvider } from '@infra/ory/client';
 
 export const metadata: Metadata = {
-  title: "Ory Next.js App router Example",
+  title: 'Ory Next.js App router Example',
 };
 
 export default async function RootLayout() {
@@ -24,8 +23,10 @@ export default async function RootLayout() {
     <SessionProvider session={session}>
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="flex flex-col items-center gap-4">
-            {/*<Image src={OryLogo as string} alt="Ory Logo" width={160} />*/}
-            <OryLogo alt="Ory Logo" width={160} />
+          <OryLogo
+            alt="Ory Logo"
+            width={160}
+          />
           <h1 className="font-bold text-xl">Ory Next.js App Router Example</h1>
           {!session && (
             <div className="flex items-center gap-2 bg-white rounded-sm border flex-col w-60 p-3">
@@ -35,7 +36,10 @@ export default async function RootLayout() {
               >
                 Registration
               </Link>
-              <Link className="underline block w-full" href={path.login_ui_url}>
+              <Link
+                className="underline block w-full"
+                href={path.login_ui_url}
+              >
                 Login
               </Link>
               <Link
@@ -54,10 +58,11 @@ export default async function RootLayout() {
           )}
           {session && (
             <div className="flex items-center gap-2 bg-white rounded-sm border flex-col w-60 p-3">
-              <h2 className="w-full">
-                Hi, {traits.email ?? traits.username ?? traits.phone}!
-              </h2>
-              <Link className="underline block w-full" href="/settings">
+              <h2 className="w-full">Hi, {traits.email ?? traits.username ?? traits.phone}!</h2>
+              <Link
+                className="underline block w-full"
+                href="/settings"
+              >
                 Settings
               </Link>
               <LogoutLink />
@@ -91,7 +96,10 @@ async function LogoutLink() {
   const flow = await getLogoutFlow({});
 
   return (
-    <Link className="underline block w-full" href={flow.logout_url}>
+    <Link
+      className="underline block w-full"
+      href={flow.logout_url}
+    >
       Logout
     </Link>
   );

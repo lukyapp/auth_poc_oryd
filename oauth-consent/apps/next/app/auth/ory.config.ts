@@ -1,13 +1,13 @@
-import pathConfig from "@/path.config";
-import { OryClientConfiguration } from "@infra/ory";
+import pathConfig from '@/path.config';
+import { type OryClientConfiguration } from '@infra/ory';
 
 const path = pathConfig.authPath;
 const config: OryClientConfiguration = {
   project: {
-    default_locale: "en",
-    default_redirect_url: "/",
-    locale_behavior: "force_default",
-    name: "Ory Next.js App Router Example",
+    default_locale: 'en',
+    default_redirect_url: '/',
+    locale_behavior: 'force_default',
+    name: 'Ory Next.js App Router Example',
     registration_enabled: true,
     verification_enabled: true,
     recovery_enabled: true,

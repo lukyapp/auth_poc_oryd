@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { generateCsrfCookie } from "@/components/csrf-server-tools";
-import { useEffect, useState } from "react";
+import { generateCsrfCookie } from '@/components/csrf-server-tools';
+import { useEffect, useState } from 'react';
 
 export const useCsrfToken = () => {
   const [token, setToken] = useState<string | undefined>();

@@ -1,32 +1,30 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client"
+'use client';
 
-import { UiNode, UiNodeInputAttributes } from "@ory/client-fetch"
-import { OrySettingsSsoProps } from "@infra/ory"
-import { useEffect } from "react"
-import { useFormContext } from "react-hook-form"
-import { useDebounceValue } from "usehooks-ts"
-import Trash from "../../assets/icons/trash.svg"
-import logos from "../../provider-logos"
-import { DefaultHorizontalDivider } from "../form/horizontal-divider"
-import { DefaultButtonSocial, extractProvider, GenericLogo } from "../form/sso"
-import { Spinner } from "../form/spinner"
-import { omitInputAttributes } from "../../../../util/omitAttributes"
+import { type Group } from '@/infra/ory/src/theme/default/components/card/auth-method-list-item';
+import { type UiNode, type UiNodeInputAttributes } from '@ory/client-fetch';
+import { type OrySettingsSsoProps } from '@infra/ory';
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useDebounceValue } from 'usehooks-ts';
+import { TrashIcon } from '@radix-ui/react-icons';
+import logos from '../../provider-logos';
+import { DefaultHorizontalDivider } from '../form/horizontal-divider';
+import { DefaultButtonSocial, extractProvider, GenericLogo } from '../form/sso';
+import { Spinner } from '../form/spinner';
+import { omitInputAttributes } from '../../../../util/omitAttributes';
 
-export function DefaultSettingsOidc({
-  linkButtons,
-  unlinkButtons,
-}: OrySettingsSsoProps) {
-  const hasLinkButtons = linkButtons.length > 0
-  const hasUnlinkButtons = unlinkButtons.length > 0
+export function DefaultSettingsOidc({ linkButtons, unlinkButtons }: OrySettingsSsoProps) {
+  const hasLinkButtons = linkButtons.length > 0;
+  const hasUnlinkButtons = unlinkButtons.length > 0;
 
   return (
     <div className="flex flex-col gap-8">
       {hasLinkButtons && (
         <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 md:grid-cols-3">
           {linkButtons.map((button) => {
-            const attrs = button.attributes as UiNodeInputAttributes
+            const attrs = button.attributes as UiNodeInputAttributes;
 
             return (
               <DefaultButtonSocial
@@ -36,55 +34,59 @@ export function DefaultSettingsOidc({
                 attributes={attrs}
                 onClick={button.onClick}
               />
-            )
+            );
           })}
         </div>
       )}
       {hasUnlinkButtons && hasLinkButtons ? <DefaultHorizontalDivider /> : null}
       {unlinkButtons.map((button) => {
-        if (button.attributes.node_type !== "input") {
-          return null
+        if (button.attributes.node_type !== 'input') {
+          return null;
         }
-        return <UnlinkRow key={button.attributes.value} button={button} />
+        return (
+          <UnlinkRow
+            key={button.attributes.value}
+            button={button}
+          />
+        );
       })}
     </div>
-  )
+  );
 }
 
 type UnlinkRowProps = {
-  button: UiNode & { onClick: () => void }
-}
+  button: UiNode & { onClick: () => void };
+};
 
 function UnlinkRow({ button }: UnlinkRowProps) {
   // Safari cancels form submission events, if we do a state update in the same tick
   // so we delay the state update by 100ms
-  const [clicked, setClicked] = useDebounceValue(false, 100)
+  const [clicked, setClicked] = useDebounceValue(false, 100);
   const {
     formState: { isSubmitting },
-  } = useFormContext()
-  const attrs = button.attributes as UiNodeInputAttributes
-  const provider = extractProvider(button.meta.label?.context) ?? ""
-  const Logo = logos[(attrs.value as string).split("-")[0]]
+  } = useFormContext();
+  const attrs = button.attributes as UiNodeInputAttributes;
+  const provider = extractProvider(button.meta.label?.context) ?? '';
+  const Logo = logos[(attrs.value as Group).split('-')[0]];
 
   const localOnClick = () => {
-    button.onClick()
-    setClicked(true)
-  }
+    button.onClick();
+    setClicked(true);
+  };
 
   useEffect(() => {
     if (!isSubmitting) {
-      setClicked(false)
+      setClicked(false);
     }
-  }, [isSubmitting, setClicked])
+  }, [isSubmitting, setClicked]);
 
   return (
-    <div key={attrs.value} className="flex justify-between">
+    <div
+      key={attrs.value}
+      className="flex justify-between"
+    >
       <div className="flex items-center gap-6">
-        {Logo ? (
-          <Logo size={32} />
-        ) : (
-          <GenericLogo label={provider.slice(0, 1)} />
-        )}
+        {Logo ? <Logo size={32} /> : <GenericLogo label={provider.slice(0, 1)} />}
         <p className="text-sm font-medium text-interface-foreground-default-secondary">
           {provider}
         </p>
@@ -100,12 +102,13 @@ function UnlinkRow({ button }: UnlinkRowProps) {
         {clicked ? (
           <Spinner className="relative" />
         ) : (
-          <Trash
+          <TrashIcon
             className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
-            size={24}
+            height={20}
+            width={20}
           />
         )}
       </button>
     </div>
-  )
+  );
 }

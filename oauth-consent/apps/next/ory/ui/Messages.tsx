@@ -1,7 +1,7 @@
-import { UiText } from "@ory/client";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { JSX } from "react";
-import { AlertCircle, AlertOctagon, Check } from "lucide-react";
+import { type UiText } from '@ory/client';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { type JSX } from 'react';
+import { AlertCircle, AlertOctagon, Check } from 'lucide-react';
 
 interface MessageProps {
   message: UiText;
@@ -10,13 +10,13 @@ interface MessageProps {
 export const Message = ({ message }: MessageProps) => {
   let icon: JSX.Element = <></>;
   switch (message.type) {
-    case "error":
+    case 'error':
       icon = <AlertOctagon className="h-4 w-4" />;
       break;
-    case "success":
+    case 'success':
       icon = <Check className="h-4 w-4" />;
       break;
-    case "info":
+    case 'info':
       icon = <AlertCircle className="h-4 w-4" />;
       break;
   }
@@ -24,9 +24,7 @@ export const Message = ({ message }: MessageProps) => {
   return (
     <Alert>
       {icon}
-      <AlertTitle>
-        {message.type.charAt(0).toUpperCase() + message.type.substring(1)}
-      </AlertTitle>
+      <AlertTitle>{message.type.charAt(0).toUpperCase() + message.type.substring(1)}</AlertTitle>
       <AlertDescription>{message.text}</AlertDescription>
     </Alert>
   );
@@ -46,7 +44,10 @@ export const Messages = ({ messages, classNames }: MessagesProps) => {
   return (
     <div className={classNames}>
       {messages.map((message) => (
-        <Message key={message.id} message={message} />
+        <Message
+          key={message.id}
+          message={message}
+        />
       ))}
     </div>
   );

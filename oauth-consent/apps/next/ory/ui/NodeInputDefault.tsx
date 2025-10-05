@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { NodeInputProps } from "./helpers";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { AlertTriangle } from "lucide-react";
+import { type NodeInputProps } from './helpers';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { AlertTriangle } from 'lucide-react';
 
 export function NodeInputDefault<T>(props: NodeInputProps) {
-  const { node, attributes, value = "", setValue, disabled } = props;
+  const { node, attributes, value = '', setValue, disabled } = props;
 
   // Some attributes have dynamic JavaScript - this is for example required for WebAuthn.
   const onClick = () => {
@@ -19,16 +19,12 @@ export function NodeInputDefault<T>(props: NodeInputProps) {
     }
   };
 
-  const state = node.messages.find(({ type }) => type === "error")
-    ? "error"
-    : undefined;
+  const state = node.messages.find(({ type }) => type === 'error') ? 'error' : undefined;
 
   // Render a generic text input field.
   return (
     <div>
-      <Label className={state ? "text-yellow-500" : undefined}>
-        {node.meta.label?.text}
-      </Label>
+      <Label className={state ? 'text-yellow-500' : undefined}>{node.meta.label?.text}</Label>
       <Input
         title={node.meta.label?.text}
         onClick={onClick}

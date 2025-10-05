@@ -1,16 +1,11 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Session, SessionDevice } from "@ory/client";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { UAParser } from "ua-parser-js";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import React, { useState } from 'react';
+import { type Session, type SessionDevice } from '@ory/client';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { UAParser } from 'ua-parser-js';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 interface SessionItemProps {
   session: Session;
@@ -38,8 +33,7 @@ export default function SessionItem({
         <CardTitle>{result.os.name}</CardTitle>
         <CardDescription>
           {result.browser.name}, version {result.browser.version} <br />
-          Signed in since{" "}
-          {new Date(session.authenticated_at!!).toLocaleString()}
+          Signed in since {new Date(session.authenticated_at!).toLocaleString()}
         </CardDescription>
       </CardHeader>
       {showInvalidate ? (

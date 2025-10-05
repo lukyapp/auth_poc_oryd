@@ -1,9 +1,9 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { useComponents } from "../../context"
+import { useComponents } from '../../context';
 
-export type OryCardHeaderProps = Record<string, never>
+export type OryCardHeaderProps = Record<string, never>;
 
 /**
  * Returns the header of the Ory Card.
@@ -12,6 +12,7 @@ export type OryCardHeaderProps = Record<string, never>
  * @group Components
  */
 export function OryCardHeader() {
-  const { Card } = useComponents()
-  return <Card.Header />
+  console.log(typeof window === 'undefined' ? 'Server' : 'Client');
+  const { Card } = useComponents();
+  return <Card.Header />;
 }

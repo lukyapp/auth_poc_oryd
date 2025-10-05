@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { useSession } from "@/components/use-session";
-import { OAuth2ConsentRequest } from "@ory/client";
-import Image from "next/image";
-import React, { useState } from "react";
+} from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { useSession } from '@/components/use-session';
+import { type OAuth2ConsentRequest } from '@ory/client';
+import Image from 'next/image';
+import React, { useState } from 'react';
 
 interface ConsentFormProps {
   request: OAuth2ConsentRequest;
@@ -22,16 +22,10 @@ interface ConsentFormProps {
   onReject: (challenge: string) => void;
 }
 
-export default function ConsentForm({
-  request,
-  onAccept,
-  onReject,
-}: ConsentFormProps) {
+export default function ConsentForm({ request, onAccept, onReject }: ConsentFormProps) {
   const session = useSession();
   const [remember, setRemember] = useState<boolean>(false);
-  const [requestedScopes, setRequestedScopes] = useState<string[]>(
-    request.requested_scope ?? [],
-  );
+  const [requestedScopes, setRequestedScopes] = useState<string[]>(request.requested_scope ?? []);
 
   return (
     <>
@@ -45,21 +39,22 @@ export default function ConsentForm({
       <CardHeader className="flex items-center text-center space-y-4">
         <CardTitle>Welcome {session?.identity?.traits.name}</CardTitle>
         <CardDescription className="max-w-xs">
-          The application {request?.client?.client_name} requests access to the
-          following permissions:
+          The application {request?.client?.client_name} requests access to the following
+          permissions:
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col space-y-4">
         <div className="flex flex-col space-y-2">
           {request?.requested_scope?.map((scope) => (
-            <div key={scope} className="flex flex-row space-x-2">
+            <div
+              key={scope}
+              className="flex flex-row space-x-2"
+            >
               <Checkbox
                 checked={requestedScopes?.includes(scope)}
                 onCheckedChange={() => {
                   if (requestedScopes?.includes(scope)) {
-                    setRequestedScopes(
-                      requestedScopes.filter((it) => it !== scope),
-                    );
+                    setRequestedScopes(requestedScopes.filter((it) => it !== scope));
                   } else {
                     setRequestedScopes([...requestedScopes, scope]);
                   }
@@ -70,8 +65,8 @@ export default function ConsentForm({
           ))}
         </div>
         <CardDescription>
-          Only grant permissions if you trust this site or app. You don&apos;t
-          need to accept all permissions.
+          Only grant permissions if you trust this site or app. You don&apos;t need to accept all
+          permissions.
         </CardDescription>
         <div className="flex flex-row">
           {request?.client?.policy_uri && (
@@ -105,15 +100,18 @@ export default function ConsentForm({
             <div className="flex flex-col space-y-2">
               <Label>Remember my decision</Label>
               <Label className="text-xs font-normal">
-                Remember this decision for next time. The application will not
-                be able to ask for additional permissions without your consent.
+                Remember this decision for next time. The application will not be able to ask for
+                additional permissions without your consent.
               </Label>
             </div>
           </div>
         </div>
       </CardContent>
       <CardFooter className="flex w-full space-x-2 justify-end">
-        <Button variant="outline" onClick={() => onReject(request.challenge)}>
+        <Button
+          variant="outline"
+          onClick={() => onReject(request.challenge)}
+        >
           Reject
         </Button>
         <Button

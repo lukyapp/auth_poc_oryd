@@ -1,32 +1,32 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client";
+'use client';
 
-import { useComponents } from "../../context"
-import { useOryFlow } from "../../context"
+import { useComponents } from '../../context';
+import { useOryFlow } from '../../context';
 import {
   getNodeId,
-  UiNode,
+  type UiNode,
   UiNodeGroupEnum,
-  UiNodeInputAttributes,
-} from "@ory/client-fetch"
-import { PropsWithChildren } from "react"
-import { OryForm } from "./form"
-import { useFormContext } from "react-hook-form"
-import { OryFormProvider } from "./form-provider"
+  type UiNodeInputAttributes,
+} from '@ory/client-fetch';
+import { type PropsWithChildren } from 'react';
+import { OryForm } from './form';
+import { useFormContext } from 'react-hook-form';
+import { OryFormProvider } from './form-provider';
 
 export type OryFormSsoRootProps = PropsWithChildren<{
-  nodes: UiNode[]
-}>
+  nodes: UiNode[];
+}>;
 
 /**
  * Props for the OryNodeSsoButton component.
  */
 export type OryNodeSsoButtonProps = {
-  node: UiNode
-  attributes: UiNodeInputAttributes
-  onClick?: () => void
-}
+  node: UiNode;
+  attributes: UiNodeInputAttributes;
+  onClick?: () => void;
+};
 
 /**
  * Renders the flow's OIDC buttons.
@@ -37,20 +37,18 @@ export type OryNodeSsoButtonProps = {
 export function OryFormSsoButtons() {
   const {
     flow: { ui },
-  } = useOryFlow()
-  const { setValue } = useFormContext()
+  } = useOryFlow();
+  const { setValue } = useFormContext();
 
   // Only get the oidc nodes.
   const filteredNodes = ui.nodes.filter(
-    (node) =>
-      node.group === UiNodeGroupEnum.Oidc ||
-      node.group === UiNodeGroupEnum.Saml,
-  )
+    (node) => node.group === UiNodeGroupEnum.Oidc || node.group === UiNodeGroupEnum.Saml,
+  );
 
-  const { Form, Node } = useComponents()
+  const { Form, Node } = useComponents();
 
   if (filteredNodes.length === 0) {
-    return null
+    return null;
   }
 
   return (
@@ -61,16 +59,13 @@ export function OryFormSsoButtons() {
           key={getNodeId(node)}
           attributes={node.attributes as UiNodeInputAttributes}
           onClick={() => {
-            setValue(
-              "provider",
-              (node.attributes as UiNodeInputAttributes).value,
-            )
-            setValue("method", node.group)
+            setValue('provider', (node.attributes as UiNodeInputAttributes).value);
+            setValue('method', node.group);
           }}
         />
       ))}
     </Form.SsoRoot>
-  )
+  );
 }
 
 /**
@@ -84,17 +79,15 @@ export function OryFormSsoButtons() {
 export function OryFormSsoForm() {
   const {
     flow: { ui },
-  } = useOryFlow()
+  } = useOryFlow();
 
   // Only get the oidc nodes.
   const filteredNodes = ui.nodes.filter(
-    (node) =>
-      node.group === UiNodeGroupEnum.Saml ||
-      node.group === UiNodeGroupEnum.Oidc,
-  )
+    (node) => node.group === UiNodeGroupEnum.Saml || node.group === UiNodeGroupEnum.Oidc,
+  );
 
   if (filteredNodes.length === 0) {
-    return null
+    return null;
   }
 
   return (
@@ -103,5 +96,5 @@ export function OryFormSsoForm() {
         <OryFormSsoButtons />
       </OryForm>
     </OryFormProvider>
-  )
+  );
 }

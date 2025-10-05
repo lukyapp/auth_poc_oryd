@@ -1,66 +1,54 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client";
+'use client';
 
-import { UiNode, UiNodeInputAttributes } from "@ory/client-fetch"
-import { useFormContext } from "react-hook-form"
-import { useIntl } from "react-intl"
-import { useComponents } from "../../context"
+import { type UiNode, type UiNodeInputAttributes } from '@ory/client-fetch';
+import { useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+import { useComponents } from '../../context';
 
 const getQrCodeNode = (nodes: UiNode[]): UiNode | undefined =>
-  nodes.find(
-    (node) => "id" in node.attributes && node.attributes.id === "totp_qr",
-  )
+  nodes.find((node) => 'id' in node.attributes && node.attributes.id === 'totp_qr');
 
 const getTotpSecretNode = (nodes: UiNode[]): UiNode | undefined =>
-  nodes.find(
-    (node) =>
-      "id" in node.attributes && node.attributes.id === "totp_secret_key",
-  )
+  nodes.find((node) => 'id' in node.attributes && node.attributes.id === 'totp_secret_key');
 
 const getTotpInputNode = (nodes: UiNode[]): UiNode | undefined =>
-  nodes.find(
-    (node) => "name" in node.attributes && node.attributes.name === "totp_code",
-  )
+  nodes.find((node) => 'name' in node.attributes && node.attributes.name === 'totp_code');
 
 const getTotpUnlinkInput = (nodes: UiNode[]): UiNode | undefined =>
-  nodes.find(
-    (node) =>
-      "name" in node.attributes && node.attributes.name === "totp_unlink",
-  )
+  nodes.find((node) => 'name' in node.attributes && node.attributes.name === 'totp_unlink');
 
 const getTotpLinkButton = (nodes: UiNode[]): UiNode | undefined =>
-  nodes.find(
-    (node) => "name" in node.attributes && node.attributes.name === "method",
-  )
+  nodes.find((node) => 'name' in node.attributes && node.attributes.name === 'method');
 
 interface HeadlessSettingsTotpProps {
-  nodes: UiNode[]
+  nodes: UiNode[];
 }
 
 export function OrySettingsTotp({ nodes }: HeadlessSettingsTotpProps) {
-  const { Card, Form, Node } = useComponents()
-  const intl = useIntl()
-  const { setValue } = useFormContext()
+  const { Card, Form, Node } = useComponents();
+  const intl = useIntl();
+  const { setValue } = useFormContext();
 
-  const totpUnlink = getTotpUnlinkInput(nodes)
-  const qrNode = getQrCodeNode(nodes)
-  const secretNode = getTotpSecretNode(nodes)
-  const totpCodeNode = getTotpInputNode(nodes)
-  const totpLinkButton = getTotpLinkButton(nodes)
+  const totpUnlink = getTotpUnlinkInput(nodes);
+  const qrNode = getQrCodeNode(nodes);
+  const secretNode = getTotpSecretNode(nodes);
+  const totpCodeNode = getTotpInputNode(nodes);
+  const totpLinkButton = getTotpLinkButton(nodes);
 
   const handleUnlink = () => {
-    if (totpUnlink?.attributes.node_type === "input") {
-      setValue(totpUnlink.attributes.name, totpUnlink.attributes.value)
-      setValue("method", "totp")
+    if (totpUnlink?.attributes.node_type === 'input') {
+      setValue(totpUnlink.attributes.name, totpUnlink.attributes.value);
+      setValue('method', 'totp');
     }
-  }
+  };
 
   return (
     <>
       <Card.SettingsSectionContent
-        title={intl.formatMessage({ id: "settings.totp.title" })}
-        description={intl.formatMessage({ id: "settings.totp.description" })}
+        title={intl.formatMessage({ id: 'settings.totp.title' })}
+        description={intl.formatMessage({ id: 'settings.totp.description' })}
       >
         <Form.TotpSettings
           totpImage={qrNode}
@@ -73,8 +61,8 @@ export function OrySettingsTotp({ nodes }: HeadlessSettingsTotpProps) {
       <Card.SettingsSectionFooter
         text={
           totpUnlink
-            ? intl.formatMessage({ id: "settings.totp.info.linked" })
-            : intl.formatMessage({ id: "settings.totp.info.not-linked" })
+            ? intl.formatMessage({ id: 'settings.totp.info.linked' })
+            : intl.formatMessage({ id: 'settings.totp.info.not-linked' })
         }
       >
         {totpLinkButton && (
@@ -85,5 +73,5 @@ export function OrySettingsTotp({ nodes }: HeadlessSettingsTotpProps) {
         )}
       </Card.SettingsSectionFooter>
     </>
-  )
+  );
 }

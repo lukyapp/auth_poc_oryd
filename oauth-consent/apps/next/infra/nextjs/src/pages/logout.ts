@@ -1,10 +1,10 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client";
+'use client';
 
-import { LogoutFlow } from "@ory/client-fetch"
-import { clientSideFrontendClient } from "./client"
-import { useEffect, useState } from "react"
+import { type LogoutFlow } from '@ory/client-fetch';
+import { clientSideFrontendClient } from './client';
+import { useEffect, useState } from 'react';
 
 /**
  * A client side hook to create a logout flow.
@@ -14,18 +14,18 @@ import { useEffect, useState } from "react"
  * @group Hooks
  */
 export function useLogoutFlow() {
-  const [flow, setFlow] = useState<LogoutFlow | undefined>(undefined)
+  const [flow, setFlow] = useState<LogoutFlow | undefined>(undefined);
 
   const createFlow = async () => {
-    const flow = await clientSideFrontendClient().createBrowserLogoutFlow({})
-    setFlow(flow)
-  }
+    const flow = await clientSideFrontendClient().createBrowserLogoutFlow({});
+    setFlow(flow);
+  };
 
   useEffect(() => {
     if (!flow) {
-      void createFlow()
+      void createFlow();
     }
-  }, [])
+  }, []);
 
-  return flow
+  return flow;
 }

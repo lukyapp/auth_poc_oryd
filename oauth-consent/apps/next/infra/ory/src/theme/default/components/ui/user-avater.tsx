@@ -1,13 +1,13 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { ComponentPropsWithoutRef, forwardRef } from "react"
-import { UserInitials } from "../../utils/user"
-import IconUser from "../../assets/icons/user.svg"
+import { type ComponentPropsWithoutRef, forwardRef } from 'react';
+import { type UserInitials } from '../../utils/user';
+import { PersonIcon } from '@radix-ui/react-icons';
 
 type UserAvatarProps = {
-  initials: UserInitials
-} & ComponentPropsWithoutRef<"button">
+  initials: UserInitials;
+} & ComponentPropsWithoutRef<'button'>;
 
 export const UserAvatar = forwardRef<HTMLButtonElement, UserAvatarProps>(
   ({ initials, ...rest }, ref) => {
@@ -25,14 +25,15 @@ export const UserAvatar = forwardRef<HTMLButtonElement, UserAvatarProps>(
               className="w-full object-contain"
             />
           ) : (
-            <IconUser
-              size={24}
+            <PersonIcon
+              height={20}
+              width={20}
               className="text-button-primary-foreground-default"
             />
           )}
         </div>
       </button>
-    )
+    );
   },
-)
-UserAvatar.displayName = "UserAvatar"
+);
+UserAvatar.displayName = 'UserAvatar';

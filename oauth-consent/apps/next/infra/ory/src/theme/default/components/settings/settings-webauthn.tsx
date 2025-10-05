@@ -1,13 +1,13 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client"
+'use client';
 
-import { UiNodeInputAttributes } from "@ory/client-fetch"
-import { OrySettingsWebauthnProps, useComponents } from "@infra/ory"
-import Key from "../../assets/icons/key.svg"
-import Trash from "../../assets/icons/trash.svg"
-import { useFormContext } from "react-hook-form"
-import { Spinner } from "../form/spinner"
+import { type UiNodeInputAttributes } from '@ory/client-fetch';
+import { type OrySettingsWebauthnProps, useComponents } from '@infra/ory';
+import Key from '../../assets/icons/key.svg';
+import { TrashIcon } from '@radix-ui/react-icons';
+import { useFormContext } from 'react-hook-form';
+import { Spinner } from '../form/spinner';
 
 export function DefaultSettingsWebauthn({
   nameInput,
@@ -16,9 +16,9 @@ export function DefaultSettingsWebauthn({
 }: OrySettingsWebauthnProps) {
   const {
     formState: { isSubmitting },
-  } = useFormContext()
-  const { Node, Card } = useComponents()
-  const hasRemoveButtons = removeButtons.length > 0
+  } = useFormContext();
+  const { Node, Card } = useComponents();
+  const hasRemoveButtons = removeButtons.length > 0;
 
   return (
     <div className="flex flex-col gap-8">
@@ -47,15 +47,11 @@ export function DefaultSettingsWebauthn({
           <Card.Divider />
           <div className="flex flex-col gap-4">
             {removeButtons.map((node, i) => {
-              const context = node.meta.label?.context ?? {}
-              const addedAt =
-                "added_at" in context ? (context.added_at as string) : null
+              const context = node.meta.label?.context ?? {};
+              const addedAt = 'added_at' in context ? (context.added_at as string) : null;
               const displayName =
-                "display_name" in context
-                  ? (context.display_name as string)
-                  : null
-              const keyId =
-                "value" in node.attributes ? node.attributes.value : null
+                'display_name' in context ? (context.display_name as string) : null;
+              const keyId = 'value' in node.attributes ? node.attributes.value : null;
 
               return (
                 <div
@@ -79,7 +75,7 @@ export function DefaultSettingsWebauthn({
                       {addedAt && (
                         <p className="text-sm text-interface-foreground-default-tertiary">
                           {new Intl.DateTimeFormat(undefined, {
-                            dateStyle: "long",
+                            dateStyle: 'long',
                           }).format(new Date(addedAt))}
                         </p>
                       )}
@@ -95,18 +91,19 @@ export function DefaultSettingsWebauthn({
                     {isSubmitting ? (
                       <Spinner className="relative" />
                     ) : (
-                      <Trash
+                      <TrashIcon
                         className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
-                        size={24}
+                        height={20}
+                        width={20}
                       />
                     )}
                   </button>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
       ) : null}
     </div>
-  )
+  );
 }

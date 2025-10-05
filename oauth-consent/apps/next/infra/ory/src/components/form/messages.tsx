@@ -1,9 +1,9 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { UiText } from "@ory/client-fetch"
-import { useComponents, useOryFlow } from "../../context"
-import { PropsWithChildren } from "react"
+import { type UiText } from '@ory/client-fetch';
+import { useComponents, useOryFlow } from '../../context';
+import { type PropsWithChildren } from 'react';
 
 /**
  * Props for the OryMessageContent component.
@@ -14,15 +14,15 @@ export type OryMessageContentProps = {
   /**
    * The message to display.
    */
-  message: UiText
-}
+  message: UiText;
+};
 
 /**
  *
  * @interface
  * @expand
  */
-export type OryMessageRootProps = PropsWithChildren
+export type OryMessageRootProps = PropsWithChildren;
 
 /**
  * Props for the {@link OryCardValidationMessages} component.
@@ -39,7 +39,7 @@ export interface OryCardValidationMessagesProps {
    *
    * @see https://www.ory.sh/docs/kratos/concepts/ui-messages
    */
-  hiddenMessageIds?: number[]
+  hiddenMessageIds?: number[];
 }
 
 /**
@@ -50,25 +50,24 @@ export interface OryCardValidationMessagesProps {
  * @group Components
  */
 export function OryCardValidationMessages({
-  hiddenMessageIds = [
-    1040009, 1060003, 1080003, 1010004, 1010014, 1040005, 1010016, 1010003,
-  ],
+  hiddenMessageIds = [1040009, 1060003, 1080003, 1010004, 1010014, 1040005, 1010016, 1010003],
 }: OryCardValidationMessagesProps) {
-  const { flow } = useOryFlow()
-  const messages = flow.ui.messages?.filter(
-    (m) => !hiddenMessageIds.includes(m.id),
-  )
-  const { Message } = useComponents()
+  const { flow } = useOryFlow();
+  const messages = flow.ui.messages?.filter((m) => !hiddenMessageIds.includes(m.id));
+  const { Message } = useComponents();
 
   if (!messages) {
-    return null
+    return null;
   }
 
   return (
     <Message.Root>
       {messages?.map((message) => (
-        <Message.Content key={message.id} message={message} />
+        <Message.Content
+          key={message.id}
+          message={message}
+        />
       ))}
     </Message.Root>
-  )
+  );
 }

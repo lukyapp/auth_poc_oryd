@@ -1,8 +1,8 @@
-import { getOAuth2Api } from "@/ory/sdk/server";
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { getOAuth2Api } from '@/ory/sdk/server';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
-type Scope = "openid" | "email" | "profile" | "offline";
+type Scope = 'openid' | 'email' | 'profile' | 'offline';
 
 type WithCsrfToken = {
   csrf_token: string;
@@ -15,24 +15,24 @@ type BaseConsentBody = WithCsrfToken & {
 };
 
 type AcceptConsentBody = BaseConsentBody & {
-  action: "accept";
+  action: 'accept';
 };
 
 type RejectConsentBody = BaseConsentBody & {
-  action: "reject";
+  action: 'reject';
 };
 
 type ConsentBody = AcceptConsentBody | RejectConsentBody;
 
 const getBody = async (req: Request) => {
-  const contentType = req.headers.get("content-type") || "";
-  if (contentType.includes("application/json")) {
+  const contentType = req.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
     const data = await req.json();
     return data;
   }
   if (
-    contentType.includes("application/x-www-form-urlencoded") ||
-    contentType.includes("multipart/form-data")
+    contentType.includes('application/x-www-form-urlencoded') ||
+    contentType.includes('multipart/form-data')
   ) {
     const form = await req.formData();
     const data = Object.fromEntries(form.entries());
@@ -43,10 +43,10 @@ const getBody = async (req: Request) => {
 
 async function checkCsrfToken(body: WithCsrfToken) {
   const cookieStore = await cookies();
-  const csrfToken = cookieStore.get("csrf_token")?.value;
+  const csrfToken = cookieStore.get('csrf_token')?.value;
 
   if (!csrfToken || body.csrf_token !== csrfToken) {
-    throw new Error("Invalid CSRF token");
+    throw new Error('Invalid CSRF token');
     // return NextResponse.json({error: "Invalid CSRF token"}, {status: 403})
   }
 }
@@ -56,11 +56,7 @@ export async function POST(req: Request) {
   const body: ConsentBody = await getBody(req);
   checkCsrfToken(body);
 
-  const onAccept = async (
-    challenge: string,
-    scopes: Scope[],
-    remember: boolean,
-  ) => {
+  const onAccept = async (challenge: string, scopes: Scope[], remember: boolean) => {
     const hydra = await getOAuth2Api();
     const response = await hydra
       .acceptOAuth2ConsentRequest({
@@ -72,12 +68,12 @@ export async function POST(req: Request) {
         },
       })
       .then(({ data }) => data)
-      .catch((_) => {
-        console.log("Something unexpected went wrong.");
-        // toast.error("Something unexpected went wrong.");
+      .catch((error: unknown) => {
+        console.log('Something unexpected went wrong.');
+        console.log('error : ', error);
       });
 
-    const redirectTo = response?.redirect_to ?? "/";
+    const redirectTo = response?.redirect_to ?? '/';
     return { redirectTo };
   };
 
@@ -88,28 +84,22 @@ export async function POST(req: Request) {
         consentChallenge: challenge,
       })
       .then(({ data }) => data)
-      .catch((_) => {
-        console.log("Something unexpected went wrong.");
-        // toast.error("Something unexpected went wrong.");
+      .catch((error: unknown) => {
+        console.log('Something unexpected went wrong.');
+        console.log('error : ', error);
       });
 
-    const redirectTo = response?.redirect_to ?? "/";
+    const redirectTo = response?.redirect_to ?? '/';
     return { redirectTo };
   };
 
-  if (body.action === "accept") {
-    const { redirectTo } = await onAccept(
-      body.consent_challenge,
-      body.grant_scope,
-      body.remember,
-    );
-    console.log("redirectTo : ", redirectTo);
+  if (body.action === 'accept') {
+    const { redirectTo } = await onAccept(body.consent_challenge, body.grant_scope, body.remember);
     return NextResponse.redirect(redirectTo);
   }
-  if (body.action === "reject") {
+  if (body.action === 'reject') {
     const { redirectTo } = await onReject(body.consent_challenge);
-    console.log("redirectTo : ", redirectTo);
     return NextResponse.redirect(redirectTo);
   }
-  return NextResponse.redirect("/");
+  return NextResponse.redirect('/');
 }

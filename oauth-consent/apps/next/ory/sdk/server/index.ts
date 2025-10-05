@@ -1,6 +1,6 @@
-"use server";
+'use server';
 
-import { Configuration, FrontendApi, OAuth2Api } from "@ory/client";
+import { Configuration, FrontendApi, OAuth2Api } from '@ory/client';
 
 // ####################################################################################
 // OAuth2 API

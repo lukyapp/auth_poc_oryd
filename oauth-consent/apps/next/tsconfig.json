@@ -26,6 +26,7 @@
       "@infra/ory/nextjs/middleware": ["./infra/nextjs/src/middleware/index.ts"],
       "@infra/ory/nextjs/pages": ["./infra/nextjs/src/pages/index.ts"],
       "@infra/ory/nextjs/utils": ["./infra/nextjs/src/utils/index.ts"],
+      "@ui/components": ["./ui/src/components/index.ts"],
       "@/*": ["./*"],
     }
   },

@@ -1,57 +1,52 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client";
+'use client';
 
 import {
   FlowType,
   getNodeLabel,
   instanceOfUiText,
-  UiNode,
-  UiNodeInputAttributes,
-} from "@ory/client-fetch"
+  type UiNode,
+  type UiNodeInputAttributes,
+} from '@ory/client-fetch';
 import {
   messageTestId,
-  OryNodeLabelProps,
+  type OryNodeLabelProps,
   uiTextToFormattedMessage,
   useComponents,
   useOryConfiguration,
   useOryFlow,
-} from "@infra/ory"
-import { useFormContext } from "react-hook-form"
-import { useIntl } from "react-intl"
-import { initFlowUrl } from "../../utils/url"
-import { useMemo } from "react"
+} from '@infra/ory';
+import { useFormContext } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+import { initFlowUrl } from '../../utils/url';
+import { useMemo } from 'react';
 
 function findResendNode(nodes: UiNode[]) {
   return nodes.find(
     (n) =>
-      "name" in n.attributes &&
-      ((n.attributes.name === "email" && n.attributes.type === "submit") ||
-        n.attributes.name === "resend"),
-  )
+      'name' in n.attributes &&
+      ((n.attributes.name === 'email' && n.attributes.type === 'submit') ||
+        n.attributes.name === 'resend'),
+  );
 }
 
-export function DefaultLabel({
-  node,
-  children,
-  attributes,
-  ...rest
-}: OryNodeLabelProps) {
-  const intl = useIntl()
-  const label = getNodeLabel(node)
-  const { Message } = useComponents()
-  const { flow } = useOryFlow()
-  const { setValue, formState } = useFormContext()
+export function DefaultLabel({ node, children, attributes, ...rest }: OryNodeLabelProps) {
+  const intl = useIntl();
+  const label = getNodeLabel(node);
+  const { Message } = useComponents();
+  const { flow } = useOryFlow();
+  const { setValue, formState } = useFormContext();
 
-  const resendNode = findResendNode(flow.ui.nodes)
+  const resendNode = findResendNode(flow.ui.nodes);
 
   const handleResend = () => {
-    if (resendNode?.attributes && "name" in resendNode.attributes) {
-      setValue(resendNode.attributes.name, resendNode.attributes.value)
+    if (resendNode?.attributes && 'name' in resendNode.attributes) {
+      setValue(resendNode.attributes.name, resendNode.attributes.value);
     }
-  }
+  };
 
-  const fieldError = formState.errors[attributes.name]
+  const fieldError = formState.errors[attributes.name];
   return (
     <div className="flex flex-col gap-1 antialiased">
       {label && (
@@ -66,7 +61,7 @@ export function DefaultLabel({
             {uiTextToFormattedMessage(label, intl)}
           </label>
           <LabelAction attributes={attributes} />
-          {resendNode?.attributes.node_type === "input" && (
+          {resendNode?.attributes.node_type === 'input' && (
             <button
               type="submit"
               name={resendNode.attributes.name}
@@ -74,51 +69,52 @@ export function DefaultLabel({
               onClick={handleResend}
               className="cursor-pointer text-button-link-brand-brand underline transition-colors hover:text-button-link-brand-brand-hover"
             >
-              {intl.formatMessage({ id: "identities.messages.1070008" })}
+              {intl.formatMessage({ id: 'identities.messages.1070008' })}
             </button>
           )}
         </span>
       )}
       {children}
       {node.messages.map((message) => (
-        <Message.Content key={message.id} message={message} />
+        <Message.Content
+          key={message.id}
+          message={message}
+        />
       ))}
-      {fieldError && instanceOfUiText(fieldError) && (
-        <Message.Content message={fieldError} />
-      )}
+      {fieldError && instanceOfUiText(fieldError) && <Message.Content message={fieldError} />}
     </div>
-  )
+  );
 }
 
 type LabelActionProps = {
-  attributes: UiNodeInputAttributes
-}
+  attributes: UiNodeInputAttributes;
+};
 
 function LabelAction({ attributes }: LabelActionProps) {
-  const intl = useIntl()
-  const { flowType, flow, formState } = useOryFlow()
-  const config = useOryConfiguration()
+  const intl = useIntl();
+  const { flowType, flow, formState } = useOryFlow();
+  const config = useOryConfiguration();
 
   const action = useMemo(() => {
     if (flowType === FlowType.Login && config.project.recovery_enabled) {
-      if (formState.current === "provide_identifier" && !flow.refresh) {
-        if (attributes.name === "identifier") {
+      if (formState.current === 'provide_identifier' && !flow.refresh) {
+        if (attributes.name === 'identifier') {
           return {
             message: intl.formatMessage({
-              id: "forms.label.recover-account",
-              defaultMessage: "Recover Account",
+              id: 'forms.label.recover-account',
+              defaultMessage: 'Recover Account',
             }),
-            href: initFlowUrl(config.sdk.url, "recovery", flow),
-          }
+            href: initFlowUrl(config.sdk.url, 'recovery', flow),
+          };
         }
-      } else if (attributes.type === "password") {
+      } else if (attributes.type === 'password') {
         return {
           message: intl.formatMessage({
-            id: "forms.label.forgot-password",
-            defaultMessage: "Forgot password?",
+            id: 'forms.label.forgot-password',
+            defaultMessage: 'Forgot password?',
           }),
-          href: initFlowUrl(config.sdk.url, "recovery", flow),
-        }
+          href: initFlowUrl(config.sdk.url, 'recovery', flow),
+        };
       }
     }
   }, [
@@ -129,7 +125,7 @@ function LabelAction({ attributes }: LabelActionProps) {
     intl,
     config.sdk.url,
     formState,
-  ])
+  ]);
 
   return action ? (
     <a
@@ -138,5 +134,5 @@ function LabelAction({ attributes }: LabelActionProps) {
     >
       {action.message}
     </a>
-  ) : null
+  ) : null;
 }

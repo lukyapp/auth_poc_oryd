@@ -1,14 +1,14 @@
 // Copyright © 2025 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client"
+'use client';
 
-import { OryNodeConsentScopeCheckboxProps } from "@infra/ory"
-import IconPersonal from "../../assets/icons/personal.svg"
-import IconMessage from "../../assets/icons/message.svg"
-import Phone from "../../assets/icons/phone.svg"
-import { ListItem } from "../card/list-item"
-import { useIntl } from "react-intl"
-import * as Switch from "@radix-ui/react-switch"
+import { type OryNodeConsentScopeCheckboxProps } from '@infra/ory';
+import IconPersonal from '../../assets/icons/personal.svg';
+import IconMessage from '../../assets/icons/message.svg';
+import Phone from '../../assets/icons/phone.svg';
+import { ListItem } from '../card/list-item';
+import { useIntl } from 'react-intl';
+import * as Switch from '@radix-ui/react-switch';
 
 const ScopeIcons: Record<string, typeof IconPersonal> = {
   openid: IconPersonal,
@@ -16,14 +16,14 @@ const ScopeIcons: Record<string, typeof IconPersonal> = {
   profile: IconPersonal,
   email: IconMessage,
   phone: Phone,
-}
+};
 
 export function DefaultConsentScopeCheckbox({
   attributes,
   onCheckedChange,
 }: OryNodeConsentScopeCheckboxProps) {
-  const intl = useIntl()
-  const Icon = ScopeIcons[attributes.value as string] ?? IconPersonal
+  const intl = useIntl();
+  const Icon = ScopeIcons[attributes.value as string] ?? IconPersonal;
   return (
     <ListItem
       as="label"
@@ -49,5 +49,5 @@ export function DefaultConsentScopeCheckbox({
         <Switch.Thumb className="block size-2 rounded-identifier bg-toggle-foreground-default transition-all data-[state=checked]:translate-x-3 data-[state=checked]:bg-toggle-foreground-checked" />
       </Switch.Root>
     </ListItem>
-  )
+  );
 }

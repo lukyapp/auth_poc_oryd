@@ -1,15 +1,11 @@
-"use client"
+'use client';
 
-import { UiNode, UiNodeInputAttributes } from "@ory/client";
-import { FormEvent, MouseEvent, useEffect } from "react";
+import { type UiNode, type UiNodeInputAttributes } from '@ory/client';
+import { type FormEvent, type MouseEvent, useEffect } from 'react';
 
-export type ValueSetter = (
-  value: string | number | boolean | undefined,
-) => Promise<void>;
+export type ValueSetter = (value: string | number | boolean | undefined) => Promise<void>;
 
-export type FormDispatcher = (
-  e: FormEvent<HTMLFormElement> | MouseEvent,
-) => Promise<void>;
+export type FormDispatcher = (e: FormEvent<HTMLFormElement> | MouseEvent) => Promise<void>;
 
 export interface NodeInputProps {
   node: UiNode;

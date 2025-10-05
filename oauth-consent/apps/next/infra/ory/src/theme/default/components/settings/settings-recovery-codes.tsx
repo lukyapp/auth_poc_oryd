@@ -1,14 +1,14 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-"use client"
+'use client';
 
-import { UiNodeInputAttributes } from "@ory/client-fetch"
-import { OrySettingsRecoveryCodesProps } from "@infra/ory"
-import Download from "../../assets/icons/download.svg"
-import Eye from "../../assets/icons/eye.svg"
-import Refresh from "../../assets/icons/refresh.svg"
-import { DefaultHorizontalDivider } from "../form/horizontal-divider"
-import { useFormContext } from "react-hook-form"
+import { type UiNodeInputAttributes } from '@ory/client-fetch';
+import { type OrySettingsRecoveryCodesProps } from '@infra/ory';
+import Download from '../../assets/icons/download.svg';
+import Eye from '../../assets/icons/eye.svg';
+import Refresh from '../../assets/icons/refresh.svg';
+import { DefaultHorizontalDivider } from '../form/horizontal-divider';
+import { useFormContext } from 'react-hook-form';
 
 export function DefaultSettingsRecoveryCodes({
   codes,
@@ -19,26 +19,26 @@ export function DefaultSettingsRecoveryCodes({
 }: OrySettingsRecoveryCodesProps) {
   const {
     formState: { isSubmitting },
-  } = useFormContext()
+  } = useFormContext();
   const onDownload = () => {
-    const element = document.createElement("a")
-    const file = new Blob([codes.join("\n")], {
-      type: "text/plain",
-    })
-    element.href = URL.createObjectURL(file)
-    element.download = "recovery-codes.txt"
-    document.body.appendChild(element)
-    element.click()
-  }
+    const element = document.createElement('a');
+    const file = new Blob([codes.join('\n')], {
+      type: 'text/plain',
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = 'recovery-codes.txt';
+    document.body.appendChild(element);
+    element.click();
+  };
 
-  const hasCodes = codes.length >= 1
+  const hasCodes = codes.length >= 1;
 
   return (
     <div className="flex flex-col gap-8">
       {codes.length > 0 && <DefaultHorizontalDivider />}
       <div className="flex justify-between gap-4">
         <span className="text-interface-foreground-default-tertiary">
-          {revealButton && "Reveal recovery codes"}
+          {revealButton && 'Reveal recovery codes'}
         </span>
         <div className="flex gap-2">
           {regnerateButton && codes.length > 0 && (
@@ -101,5 +101,5 @@ export function DefaultSettingsRecoveryCodes({
         </div>
       ) : null}
     </div>
-  )
+  );
 }

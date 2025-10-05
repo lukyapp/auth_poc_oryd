@@ -1,22 +1,16 @@
-"use client";
+'use client';
 
-import pathConfig from "@/path.config";
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Flow, HandleError, kratos } from "@/ory";
-import { RecoveryFlow, UpdateRecoveryFlowBody } from "@ory/client";
-import { AxiosError } from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
+import pathConfig from '@/path.config';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Flow, HandleError, kratos } from '@/ory';
+import { type RecoveryFlow, type UpdateRecoveryFlowBody } from '@ory/client';
+import { type AxiosError } from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Recovery() {
   const path = pathConfig.clientPath;
@@ -26,8 +20,8 @@ export default function Recovery() {
   const router = useRouter();
   const params = useSearchParams();
 
-  const flowId = params.get("flow") ?? undefined;
-  const returnTo = params.get("return_to") ?? undefined;
+  const flowId = params.get('flow') ?? undefined;
+  const returnTo = params.get('return_to') ?? undefined;
 
   const getFlow = useCallback((flowId: string) => {
     return kratos
@@ -38,13 +32,7 @@ export default function Recovery() {
 
   const handleError = useCallback(
     (error: AxiosError) => {
-      const handle = HandleError(
-        getFlow,
-        setFlow,
-        path.recovery_ui_url,
-        true,
-        router,
-      );
+      const handle = HandleError(getFlow, setFlow, path.recovery_ui_url, true, router);
       return handle(error);
     },
     [getFlow],
@@ -110,13 +98,15 @@ export default function Recovery() {
       <CardHeader className="flex flex-col items-center text-center space-y-4">
         <CardTitle>Recover your account</CardTitle>
         <CardDescription className="max-w-xs">
-          If you forgot your password, you can request an email for resetting
-          it.
+          If you forgot your password, you can request an email for resetting it.
         </CardDescription>
       </CardHeader>
       <CardContent className="w-full">
         {flow ? (
-          <Flow flow={flow} onSubmit={updateFlow} />
+          <Flow
+            flow={flow}
+            onSubmit={updateFlow}
+          />
         ) : (
           <div className="flex flex-col space-y-4 mt-3">
             <div className="flex flex-col space-y-2">
@@ -130,7 +120,11 @@ export default function Recovery() {
         )}
       </CardContent>
       {flow ? (
-        <Button variant="link" asChild disabled={!flow}>
+        <Button
+          variant="link"
+          asChild
+          disabled={!flow}
+        >
           <Link
             href={{
               pathname: path.login_ui_url,

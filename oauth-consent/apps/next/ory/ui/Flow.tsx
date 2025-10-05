@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
 import {
-  LoginFlow,
-  RecoveryFlow,
-  RegistrationFlow,
-  SettingsFlow,
-  UiNode,
-  UpdateLoginFlowBody,
-  UpdateRecoveryFlowBody,
-  UpdateRegistrationFlowBody,
-  UpdateSettingsFlowBody,
-  UpdateVerificationFlowBody,
-  VerificationFlow,
-} from "@ory/client";
-import { getNodeId, isUiNodeInputAttributes } from "@ory/integrations/ui";
-import { Component, FormEvent, MouseEvent } from "react";
+  type LoginFlow,
+  type RecoveryFlow,
+  type RegistrationFlow,
+  type SettingsFlow,
+  type UiNode,
+  type UpdateLoginFlowBody,
+  type UpdateRecoveryFlowBody,
+  type UpdateRegistrationFlowBody,
+  type UpdateSettingsFlowBody,
+  type UpdateVerificationFlowBody,
+  type VerificationFlow,
+} from '@ory/client';
+import { getNodeId, isUiNodeInputAttributes } from '@ory/integrations/ui';
+import { Component, type FormEvent, type MouseEvent } from 'react';
 
-import { Messages, Node } from "@/ory";
+import { Messages, Node } from '@/ory';
 
 export type Values = Partial<
   | UpdateLoginFlowBody
@@ -27,23 +27,18 @@ export type Values = Partial<
 >;
 
 export type Methods =
-  | "oidc"
-  | "password"
-  | "profile"
-  | "totp"
-  | "webauthn"
-  | "passkey"
-  | "link"
-  | "lookup_secret";
+  | 'oidc'
+  | 'password'
+  | 'profile'
+  | 'totp'
+  | 'webauthn'
+  | 'passkey'
+  | 'link'
+  | 'lookup_secret';
 
 export type Props<T> = {
   // The flow
-  flow?:
-    | LoginFlow
-    | RegistrationFlow
-    | SettingsFlow
-    | VerificationFlow
-    | RecoveryFlow;
+  flow?: LoginFlow | RegistrationFlow | SettingsFlow | VerificationFlow | RecoveryFlow;
   // Only show certain nodes. We will always render the default nodes for CSRF tokens.
   only?: Methods;
   // Is triggered on submission
@@ -87,10 +82,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
     nodes.forEach((node) => {
       // This only makes sense for text nodes
       if (isUiNodeInputAttributes(node.attributes)) {
-        if (
-          node.attributes.type === "button" ||
-          node.attributes.type === "submit"
-        ) {
+        if (node.attributes.type === 'button' || node.attributes.type === 'submit') {
           // In order to mimic real HTML forms, we need to skip setting the value
           // for buttons as the button value will (in normal HTML forms) only trigger
           // if the user clicks it.
@@ -113,7 +105,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       if (!only) {
         return true;
       }
-      return group === "default" || group === only;
+      return group === 'default' || group === only;
     });
   };
 
@@ -138,8 +130,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       // map the entire form data to JSON for the request body
       body = Object.fromEntries(formData) as T;
 
-      const hasSubmitter = (evt: any): evt is { submitter: HTMLInputElement } =>
-        "submitter" in evt;
+      const hasSubmitter = (evt: any): evt is { submitter: HTMLInputElement } => 'submitter' in evt;
 
       // We need the method specified from the name and value of the submit button.
       // when multiple submit buttons are present, the clicked one's value is used.
@@ -157,16 +148,14 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       isLoading: true,
     }));
 
-    return this.props
-      .onSubmit({ ...body, ...this.state.values })
-      .finally(() => {
-        // We wait for reconciliation and update the state after 50ms
-        // Done submitting - update loading status
-        this.setState((state) => ({
-          ...state,
-          isLoading: false,
-        }));
-      });
+    return this.props.onSubmit({ ...body, ...this.state.values }).finally(() => {
+      // We wait for reconciliation and update the state after 50ms
+      // Done submitting - update loading status
+      this.setState((state) => ({
+        ...state,
+        isLoading: false,
+      }));
+    });
   };
 
   render() {
@@ -192,7 +181,10 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
         className="flex flex-col w-full space-y-2"
       >
         {!hideGlobalMessages ? (
-          <Messages classNames="space-y-2" messages={flow.ui.messages} />
+          <Messages
+            classNames="space-y-2"
+            messages={flow.ui.messages}
+          />
         ) : null}
         {nodes.map((node, k) => {
           const id = getNodeId(node) as keyof Values;

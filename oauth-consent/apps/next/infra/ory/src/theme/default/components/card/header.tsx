@@ -1,20 +1,20 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { messageTestId, useComponents, useOryFlow } from "@infra/ory"
-import { useCardHeaderText } from "../../utils/constructCardHeader"
-import { DefaultCurrentIdentifierButton } from "./current-identifier-button"
+import { messageTestId, useComponents, useOryFlow } from '@infra/ory';
+import { useCardHeaderText } from '../../utils/constructCardHeader';
+import { DefaultCurrentIdentifierButton } from './current-identifier-button';
 
 function InnerCardHeader({
   title,
   text,
   messageId,
 }: {
-  title: string
-  text?: string
-  messageId?: string
+  title: string;
+  text?: string;
+  messageId?: string;
 }) {
-  const { Card } = useComponents()
+  const { Card } = useComponents();
   return (
     <header className="flex flex-col gap-8 antialiased">
       <Card.Logo />
@@ -31,7 +31,7 @@ function InnerCardHeader({
         <DefaultCurrentIdentifierButton />
       </div>
     </header>
-  )
+  );
 }
 
 /**
@@ -44,13 +44,14 @@ function InnerCardHeader({
  * @category Default Components
  */
 export function DefaultCardHeader() {
-  const context = useOryFlow()
-  const { title, description, messageId } = useCardHeaderText(
-    context.flow.ui,
-    context,
-  )
+  const context = useOryFlow();
+  const { title, description, messageId } = useCardHeaderText(context.flow.ui, context);
 
   return (
-    <InnerCardHeader title={title} text={description} messageId={messageId} />
-  )
+    <InnerCardHeader
+      title={title}
+      text={description}
+      messageId={messageId}
+    />
+  );
 }

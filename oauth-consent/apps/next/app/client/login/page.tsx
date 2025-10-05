@@ -1,22 +1,16 @@
-"use client";
+'use client';
 
-import pathConfig from "@/path.config";
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Flow, HandleError, kratos, LogoutLink } from "@/ory";
-import Link from "next/link";
-import { LoginFlow, UpdateLoginFlowBody } from "@ory/client";
-import { Button } from "@/components/ui/button";
-import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
-import { AxiosError } from "axios";
+import pathConfig from '@/path.config';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Flow, HandleError, kratos, LogoutLink } from '@/ory';
+import Link from 'next/link';
+import { type LoginFlow, type UpdateLoginFlowBody } from '@ory/client';
+import { Button } from '@/components/ui/button';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton';
+import { type AxiosError } from 'axios';
 
 export default function Login() {
   const path = pathConfig.clientPath;
@@ -26,11 +20,11 @@ export default function Login() {
   const router = useRouter();
   const params = useSearchParams();
 
-  const flowId = params.get("flow") ?? undefined;
-  const aal = params.get("aal") ?? undefined;
-  const refresh = Boolean(params.get("refresh")) ? true : undefined;
-  const returnTo = params.get("return_to") ?? undefined;
-  const loginChallenge = params.get("login_challenge") ?? undefined;
+  const flowId = params.get('flow') ?? undefined;
+  const aal = params.get('aal') ?? undefined;
+  const refresh = Boolean(params.get('refresh')) ? true : undefined;
+  const returnTo = params.get('return_to') ?? undefined;
+  const loginChallenge = params.get('login_challenge') ?? undefined;
 
   const onLogout = LogoutLink([aal, refresh]);
 
@@ -43,13 +37,7 @@ export default function Login() {
 
   const handleError = useCallback(
     (error: AxiosError) => {
-      const handle = HandleError(
-        getFlow,
-        setFlow,
-        path.login_ui_url,
-        true,
-        router,
-      );
+      const handle = HandleError(getFlow, setFlow, path.login_ui_url, true, router);
       return handle(error);
     },
     [getFlow],
@@ -84,7 +72,7 @@ export default function Login() {
           window.location.href = flow?.return_to;
           return;
         }
-        router.push("/");
+        router.push('/');
       })
       .catch(handleError);
   };
@@ -100,16 +88,7 @@ export default function Login() {
     }
 
     createFlow(aal, refresh, returnTo, loginChallenge);
-  }, [
-    flowId,
-    router,
-    aal,
-    refresh,
-    returnTo,
-    createFlow,
-    loginChallenge,
-    getFlow,
-  ]);
+  }, [flowId, router, aal, refresh, returnTo, createFlow, loginChallenge, getFlow]);
 
   return (
     <Card className="flex flex-col items-center w-full max-w-sm p-4">
@@ -126,11 +105,11 @@ export default function Login() {
             <CardTitle>
               {(() => {
                 if (flow?.refresh) {
-                  return "Confirm Action";
-                } else if (flow?.requested_aal === "aal2") {
-                  return "Two-Factor Authentication";
+                  return 'Confirm Action';
+                } else if (flow?.requested_aal === 'aal2') {
+                  return 'Two-Factor Authentication';
                 }
-                return "Welcome";
+                return 'Welcome';
               })()}
             </CardTitle>
             <CardDescription className="max-w-xs">
@@ -149,7 +128,10 @@ export default function Login() {
       </CardHeader>
       <CardContent className="w-full">
         {flow ? (
-          <Flow flow={flow} onSubmit={updateFlow} />
+          <Flow
+            flow={flow}
+            onSubmit={updateFlow}
+          />
         ) : (
           <div className="flex flex-col space-y-4 mt-4">
             <div className="flex flex-col space-y-2">
@@ -166,16 +148,20 @@ export default function Login() {
           </div>
         )}
       </CardContent>
-      {flow?.requested_aal === "aal2" ||
-      flow?.requested_aal === "aal3" ||
-      flow?.refresh ? (
-        <Button onClick={onLogout} variant="link">
+      {flow?.requested_aal === 'aal2' || flow?.requested_aal === 'aal3' || flow?.refresh ? (
+        <Button
+          onClick={onLogout}
+          variant="link"
+        >
           Log out
         </Button>
       ) : (
         <div className="flex flex-col">
           {flow ? (
-            <Button variant="link" asChild>
+            <Button
+              variant="link"
+              asChild
+            >
               <Link
                 href={{
                   pathname: path.recovery_ui_url,
@@ -191,7 +177,11 @@ export default function Login() {
             <Skeleton className="h-3 w-[180px] rounded-md my-3.5" />
           )}
           {flow ? (
-            <Button variant="link" asChild disabled={!flow}>
+            <Button
+              variant="link"
+              asChild
+              disabled={!flow}
+            >
               <Link
                 href={{
                   pathname: path.registration_ui_url,

@@ -1,7 +1,7 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { OryCardContentProps } from "@infra/ory"
+import { type OryCardContentProps } from '@infra/ory';
 
 /**
  * Simply renders the children passed to it.
@@ -12,5 +12,5 @@ import { OryCardContentProps } from "@infra/ory"
  * @category Default Components
  */
 export function DefaultCardContent({ children }: OryCardContentProps) {
-  return children
+  return children;
 }

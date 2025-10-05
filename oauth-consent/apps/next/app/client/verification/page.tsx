@@ -1,22 +1,16 @@
-"use client";
+'use client';
 
-import pathConfig from "@/path.config";
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Flow, HandleError, kratos } from "@/ory";
-import { UpdateVerificationFlowBody, VerificationFlow } from "@ory/client";
-import { AxiosError } from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
+import pathConfig from '@/path.config';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Flow, HandleError, kratos } from '@/ory';
+import { type UpdateVerificationFlowBody, type VerificationFlow } from '@ory/client';
+import { type AxiosError } from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 export default function Verification() {
   const path = pathConfig.clientPath;
@@ -26,8 +20,8 @@ export default function Verification() {
   const router = useRouter();
   const params = useSearchParams();
 
-  const flowId = params.get("flow") ?? undefined;
-  const returnTo = params.get("return_to") ?? undefined;
+  const flowId = params.get('flow') ?? undefined;
+  const returnTo = params.get('return_to') ?? undefined;
 
   const getFlow = useCallback((flowId: string) => {
     return kratos
@@ -45,13 +39,7 @@ export default function Verification() {
 
   const handleError = useCallback(
     (error: AxiosError) => {
-      const handle = HandleError(
-        getFlow,
-        setFlow,
-        path.verification_ui_url,
-        true,
-        router,
-      );
+      const handle = HandleError(getFlow, setFlow, path.verification_ui_url, true, router);
       return handle(error);
     },
     [getFlow],
@@ -114,7 +102,11 @@ export default function Verification() {
       </CardHeader>
       <CardContent className="w-full">
         {flow ? (
-          <Flow flow={flow} onSubmit={updateFlow} hideGlobalMessages />
+          <Flow
+            flow={flow}
+            onSubmit={updateFlow}
+            hideGlobalMessages
+          />
         ) : (
           <div className="flex flex-col space-y-4 mt-3">
             <div className="flex flex-col space-y-2">
@@ -128,7 +120,11 @@ export default function Verification() {
         )}
       </CardContent>
       {flow ? (
-        <Button variant="link" asChild disabled={!flow}>
+        <Button
+          variant="link"
+          asChild
+          disabled={!flow}
+        >
           <Link
             href={{
               pathname: path.login_ui_url,

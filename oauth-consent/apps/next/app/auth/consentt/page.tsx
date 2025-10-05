@@ -1,11 +1,11 @@
-"use server";
+'use server';
 
-import { ConsentUi } from "@/components/consent-ui";
-import { getOAuth2Api } from "@/ory/sdk/server";
-import { OAuth2ConsentRequest } from "@ory/client";
-import { redirect } from "next/navigation";
-import React from "react";
-import { toast } from "sonner";
+import { ConsentUi } from '@/components/consent-ui';
+import { getOAuth2Api } from '@/ory/sdk/server';
+import { type OAuth2ConsentRequest } from '@ory/client';
+import { redirect } from 'next/navigation';
+import React from 'react';
+import { toast } from 'sonner';
 
 export default async function ConsentPage(props: {
   searchParams: Promise<{ consent_challenge: string }>;
@@ -16,12 +16,8 @@ export default async function ConsentPage(props: {
     return;
   }
 
-  const onAccept = async (
-    challenge: string,
-    scopes: string[],
-    remember: boolean,
-  ) => {
-    "use server";
+  const onAccept = async (challenge: string, scopes: string[], remember: boolean) => {
+    'use server';
 
     const hydra = await getOAuth2Api();
     const response = await hydra
@@ -35,11 +31,11 @@ export default async function ConsentPage(props: {
       })
       .then(({ data }) => data)
       .catch((_) => {
-        toast.error("Something unexpected went wrong.");
+        toast.error('Something unexpected went wrong.');
       });
 
     if (!response) {
-      return redirect("/");
+      return redirect('/');
     }
 
     return redirect(response.redirect_to);

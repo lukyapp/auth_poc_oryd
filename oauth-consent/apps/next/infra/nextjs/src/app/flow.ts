@@ -1,13 +1,13 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { redirect, RedirectType } from "next/navigation"
-import { FlowType, handleFlowError, ApiResponse } from "@ory/client-fetch"
+import { redirect, RedirectType } from 'next/navigation';
+import { type FlowType, handleFlowError, type ApiResponse } from '@ory/client-fetch';
 
-import { startNewFlow, onRedirect } from "./utils"
-import { QueryParams } from "../types"
-import { onValidationError } from "../utils/utils"
-import { rewriteJsonResponse } from "../utils/rewrite"
+import { startNewFlow, onRedirect } from './utils';
+import { type QueryParams } from '../types';
+import { onValidationError } from '../utils/utils';
+import { rewriteJsonResponse } from '../utils/rewrite';
 
 /**
  * A function that creates a flow fetcher. The flow fetcher can be used
@@ -32,42 +32,39 @@ export async function getFlowFactory<T extends object>(
   baseUrl: string,
   route: string,
   options: {
-    disableRewrite?: boolean
+    disableRewrite?: boolean;
   } = { disableRewrite: false },
 ): Promise<T | null | void> {
   // Guess our own public url using Next.js helpers. We need the hostname, port, and protocol.
   const onRestartFlow = (useFlowId?: string) => {
     if (!useFlowId) {
-      return startNewFlow(params, flowType, baseUrl)
+      return startNewFlow(params, flowType, baseUrl);
     }
 
-    const redirectTo = new URL(route, baseUrl)
+    const redirectTo = new URL(route, baseUrl);
     redirectTo.search = new URLSearchParams({
       ...params,
       flow: useFlowId,
-    }).toString()
-    return redirect(redirectTo.toString(), RedirectType.replace)
-  }
+    }).toString();
+    return redirect(redirectTo.toString(), RedirectType.replace);
+  };
 
-  if (!params["flow"]) {
-    return onRestartFlow()
+  if (!params['flow']) {
+    return onRestartFlow();
   }
 
   try {
-    const rawResponse = await fetchFlowRaw()
+    const rawResponse = await fetchFlowRaw();
     return await rawResponse
       .value()
-      .then(
-        (v: T): T =>
-          options.disableRewrite ? v : rewriteJsonResponse(v, baseUrl),
-      )
+      .then((v: T): T => (options.disableRewrite ? v : rewriteJsonResponse(v, baseUrl)));
   } catch (error) {
     const errorHandler = handleFlowError({
       onValidationError,
       onRestartFlow,
       onRedirect: onRedirect,
-    })
+    });
 
-    return await errorHandler(error)
+    return await errorHandler(error);
   }
 }

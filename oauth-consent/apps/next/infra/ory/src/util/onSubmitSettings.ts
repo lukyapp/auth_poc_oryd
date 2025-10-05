@@ -6,15 +6,15 @@ import {
   handleContinueWith,
   isResponseError,
   loginUrl,
-  SettingsFlow,
+  type SettingsFlow,
   settingsUrl,
-  UpdateSettingsFlowBody,
-} from "@ory/client-fetch"
-import { OryElementsConfiguration } from "../context"
-import { OryFlowContainer } from "./flowContainer"
-import { replaceWindowFlowId } from "./internal"
-import { OnSubmitHandlerProps } from "./submitHandler"
-import { handleFlowError } from "./sdk-helpers"
+  type UpdateSettingsFlowBody,
+} from '@ory/client-fetch';
+import { type OryElementsConfiguration } from '../context';
+import { type OryFlowContainer } from './flowContainer';
+import { replaceWindowFlowId } from './internal';
+import { type OnSubmitHandlerProps } from './submitHandler';
+import { handleFlowError } from './sdk-helpers';
 
 /**
  * Use this method to submit a settings flow. This method is used in the `onSubmit` handler of the settings form.
@@ -28,11 +28,7 @@ import { handleFlowError } from "./sdk-helpers"
 export async function onSubmitSettings(
   { flow }: OryFlowContainer,
   config: OryElementsConfiguration,
-  {
-    setFlowContainer,
-    body,
-    onRedirect,
-  }: OnSubmitHandlerProps<UpdateSettingsFlowBody>,
+  { setFlowContainer, body, onRedirect }: OnSubmitHandlerProps<UpdateSettingsFlowBody>,
 ) {
   await config.sdk.frontend
     .updateSettingsFlowRaw({
@@ -40,36 +36,36 @@ export async function onSubmitSettings(
       updateSettingsFlowBody: body,
     })
     .then(async (res) => {
-      const body = await res.value()
+      const body = await res.value();
 
       const didContinueWith = handleContinueWith(body.continue_with, {
         onRedirect,
-      })
+      });
 
       // eslint-disable-next-line promise/always-return
       if (didContinueWith) {
-        return
+        return;
       }
 
       setFlowContainer({
         flow: body,
         flowType: FlowType.Settings,
-      })
+      });
     })
     .catch(
       handleFlowError({
         onRestartFlow: (useFlowId) => {
           if (useFlowId) {
-            replaceWindowFlowId(useFlowId)
+            replaceWindowFlowId(useFlowId);
           } else {
-            onRedirect(settingsUrl(config), true)
+            onRedirect(settingsUrl(config), true);
           }
         },
         onValidationError: (body: SettingsFlow) => {
           setFlowContainer({
             flow: body,
             flowType: FlowType.Settings,
-          })
+          });
         },
         onRedirect,
         config,
@@ -78,12 +74,9 @@ export async function onSubmitSettings(
     .catch((err) => {
       if (isResponseError(err)) {
         if (err.response.status === 401) {
-          return onRedirect(
-            loginUrl(config) + "?return_to=" + settingsUrl(config),
-            true,
-          )
+          return onRedirect(loginUrl(config) + '?return_to=' + settingsUrl(config), true);
         }
-        throw err
+        throw err;
       }
-    })
+    });
 }

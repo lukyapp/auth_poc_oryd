@@ -1,10 +1,10 @@
-import React from "react";
-import { Card } from "@/components/ui/card";
-import { OAuth2ConsentRequest, OAuth2RedirectTo } from "@ory/client";
-import ConsentForm from "@/components/consentForm";
-import { redirect } from "next/navigation";
-import { toast } from "sonner";
-import { getOAuth2Api } from "@/ory/sdk/server";
+import React from 'react';
+import { Card } from '@/components/ui/card';
+import { type OAuth2ConsentRequest, type OAuth2RedirectTo } from '@ory/client';
+import ConsentForm from '@/components/consentForm';
+import { redirect } from 'next/navigation';
+import { toast } from 'sonner';
+import { getOAuth2Api } from '@/ory/sdk/server';
 
 export default async function Consent(props: {
   searchParams: Promise<{ consent_challenge: string }>;
@@ -14,12 +14,8 @@ export default async function Consent(props: {
   const consentChallenge = searchParams.consent_challenge ?? undefined;
   let consentRequest: OAuth2ConsentRequest | undefined = undefined;
 
-  const onAccept = async (
-    challenge: string,
-    scopes: string[],
-    remember: boolean,
-  ) => {
-    "use server";
+  const onAccept = async (challenge: string, scopes: string[], remember: boolean) => {
+    'use server';
 
     const hydra = await getOAuth2Api();
     const response = await hydra
@@ -33,18 +29,18 @@ export default async function Consent(props: {
       })
       .then(({ data }) => data)
       .catch((_) => {
-        toast.error("Something unexpected went wrong.");
+        toast.error('Something unexpected went wrong.');
       });
 
     if (!response) {
-      return redirect("/");
+      return redirect('/');
     }
 
     return redirect(response.redirect_to);
   };
 
   const onReject = async (challenge: string) => {
-    "use server";
+    'use server';
 
     const hydra = await getOAuth2Api();
     const response: OAuth2RedirectTo | void = await hydra
@@ -53,11 +49,11 @@ export default async function Consent(props: {
       })
       .then(({ data }) => data)
       .catch((_) => {
-        toast.error("Something unexpected went wrong.");
+        toast.error('Something unexpected went wrong.');
       });
 
     if (!response) {
-      return redirect("/");
+      return redirect('/');
     }
 
     return redirect(response.redirect_to);

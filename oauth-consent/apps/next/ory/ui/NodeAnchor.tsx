@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { UiNode, UiNodeAnchorAttributes } from "@ory/client";
-import { Button } from "@/components/ui/button";
+import { type UiNode, type UiNodeAnchorAttributes } from '@ory/client';
+import { Button } from '@/components/ui/button';
 
 interface Props {
   node: UiNode;

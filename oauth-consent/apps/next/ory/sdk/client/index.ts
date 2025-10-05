@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Configuration, FrontendApi } from "@ory/client";
+import { Configuration, FrontendApi } from '@ory/client';
 
 const kratos = new FrontendApi(
   new Configuration({

@@ -1,16 +1,16 @@
-import { UiNode } from "@ory/client";
+import { type UiNode } from '@ory/client';
 import {
   isUiNodeAnchorAttributes,
   isUiNodeImageAttributes,
   isUiNodeInputAttributes,
   isUiNodeScriptAttributes,
   isUiNodeTextAttributes,
-} from "@ory/integrations/ui";
+} from '@ory/integrations/ui';
 
-import { NodeAnchor } from "./NodeAnchor";
-import { NodeImage, NodeInput, NodeText } from "@/ory";
-import { NodeScript } from "./NodeScript";
-import { FormDispatcher, ValueSetter } from "./helpers";
+import { NodeAnchor } from './NodeAnchor';
+import { NodeImage, NodeInput, NodeText } from '@/ory';
+import { NodeScript } from './NodeScript';
+import { type FormDispatcher, type ValueSetter } from './helpers';
 
 interface Props {
   node: UiNode;
@@ -20,27 +20,41 @@ interface Props {
   dispatchSubmit: FormDispatcher;
 }
 
-export const Node = ({
-  node,
-  value,
-  setValue,
-  disabled,
-  dispatchSubmit,
-}: Props) => {
+export const Node = ({ node, value, setValue, disabled, dispatchSubmit }: Props) => {
   if (isUiNodeImageAttributes(node.attributes)) {
-    return <NodeImage node={node} attributes={node.attributes} />;
+    return (
+      <NodeImage
+        node={node}
+        attributes={node.attributes}
+      />
+    );
   }
 
   if (isUiNodeScriptAttributes(node.attributes)) {
-    return <NodeScript node={node} attributes={node.attributes} />;
+    return (
+      <NodeScript
+        node={node}
+        attributes={node.attributes}
+      />
+    );
   }
 
   if (isUiNodeTextAttributes(node.attributes)) {
-    return <NodeText node={node} attributes={node.attributes} />;
+    return (
+      <NodeText
+        node={node}
+        attributes={node.attributes}
+      />
+    );
   }
 
   if (isUiNodeAnchorAttributes(node.attributes)) {
-    return <NodeAnchor node={node} attributes={node.attributes} />;
+    return (
+      <NodeAnchor
+        node={node}
+        attributes={node.attributes}
+      />
+    );
   }
 
   if (isUiNodeInputAttributes(node.attributes)) {

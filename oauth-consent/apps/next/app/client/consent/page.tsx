@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FlowError } from "@ory/client";
-import { AxiosError } from "axios";
-import { kratos } from "@/ory";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { type FlowError } from '@ory/client';
+import { type AxiosError } from 'axios';
+import { kratos } from '@/ory';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function Error() {
   const [error, setError] = useState<FlowError>();
@@ -15,7 +15,7 @@ export default function Error() {
   const router = useRouter();
   const params = useSearchParams();
 
-  const id = params.get("id");
+  const id = params.get('id');
 
   useEffect(() => {
     if (error) {
@@ -35,7 +35,7 @@ export default function Error() {
           // The error id could not be fetched due to e.g. a CSRF issue. Let's just redirect home!
           case 410:
             // The error id expired. Let's just redirect home!
-            return router.push("/");
+            return router.push('/');
         }
 
         return Promise.reject(err);
@@ -57,7 +57,11 @@ export default function Error() {
         </CardContent>
       </Card>
       <Button asChild>
-        <Link href="/" className="inline-flex space-x-2" passHref>
+        <Link
+          href="/"
+          className="inline-flex space-x-2"
+          passHref
+        >
           Go back
         </Link>
       </Button>
