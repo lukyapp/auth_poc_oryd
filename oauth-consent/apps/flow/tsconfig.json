@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,18 +23,47 @@
       }
     ],
     "paths": {
-      "@ui": ["./libs/ui/src/index.ts"],
-      "@utils": ["./libs/utils/src/index.ts"],
-      "@ory": ["./ory/index.ts"],
-      "@ory/elements-react": ["./ory/elements-react/src/index.ts"],
-      "@ory/elements-react/theme": ["./ory/elements-react/src/theme/default/index.ts"],
-      "@ory/elements-react/client": ["./ory/elements-react/src/client/index.ts"],
-      "@ory/nextjs": ["./ory/nextjs/src/index.ts"],
-      "@ory/nextjs/app": ["./ory/nextjs/src/app/index.ts"],
-      "@ory/nextjs/middleware": ["./ory/nextjs/src/middleware/index.ts"],
-      "@ory/nextjs/pages": ["./ory/nextjs/src/pages/index.ts"],
-      "@ory/nextjs/utils": ["./ory/nextjs/src/utils/index.ts"]
-    },
+      "@ui": [
+        "./libs/ui/src/index.ts"
+      ],
+      "@utils": [
+        "./libs/utils/src/index.ts"
+      ],
+      "@ory": [
+        "./ory/index.ts"
+      ],
+      "@ory/sdk/client": [
+        "./ory/sdk/client/index.ts"
+      ],
+      "@ory/sdk/server": [
+        "./ory/sdk/server/index.ts"
+      ],
+      "@ory/elements-react": [
+        "./ory/elements-react/src/index.ts"
+      ],
+      "@ory/elements-react/theme": [
+        "./ory/elements-react/src/theme/default/index.ts"
+      ],
+      "@ory/elements-react/client": [
+        "./ory/elements-react/src/client/index.ts"
+      ],
+      "@ory/nextjs": [
+        "./ory/nextjs/src/index.ts"
+      ],
+      "@ory/nextjs/app": [
+        "./ory/nextjs/src/app/index.ts"
+      ],
+      "@ory/nextjs/middleware": [
+        "./ory/nextjs/src/middleware/index.ts"
+      ],
+      "@ory/nextjs/pages": [
+        "./ory/nextjs/src/pages/index.ts"
+      ],
+      "@ory/nextjs/utils": [
+        "./ory/nextjs/src/utils/index.ts"
+      ]
+    }
+  },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

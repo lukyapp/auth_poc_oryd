@@ -1,21 +1,25 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
+import { ElementType, useEffect } from "react"
+import { useFormContext } from "react-hook-form"
+import { useIntl } from "react-intl"
+import { UiNodeGroupEnum } from "@ory/client-fetch"
 import {
   OryFormSsoRootProps,
   OryNodeSsoButtonProps,
   uiTextToFormattedMessage,
   useOryFlow,
 } from "@ory/elements-react"
-import { ElementType, useEffect } from "react"
-import { useFormContext } from "react-hook-form"
-import { useIntl } from "react-intl"
 import { useDebounceValue } from "usehooks-ts"
-import defaultLogos from "../../provider-logos"
-import { cn } from "../../utils/cn"
-import { Spinner } from "./spinner"
-import { UiNodeGroupEnum } from "@ory/client-fetch"
+
+import {FormSsoRoot} from "../../../../../../../libs/ui/src/Form/FormSsoRoot";
 import { omitInputAttributes } from "../../../../util/omitAttributes"
+import defaultLogos from "../../provider-logos"
+
+import { Spinner } from "./spinner"
 
 export function extractProvider(
   context: object | undefined,
@@ -166,16 +170,11 @@ export function DefaultSocialButtonContainer({
   nodes,
 }: OryFormSsoRootProps) {
   return (
-    <div
-      className={cn("grid gap-3", {
-        // needed because tailwind is not compiling dynamic classes
-        "grid-cols-1": nodes.length % 4 <= 2,
-        "grid-cols-3": nodes.length % 3 === 0,
-        "grid-cols-4": nodes.length > 1 && nodes.length % 4 === 0,
-      })}
-    >
-      {children}
-    </div>
+      <FormSsoRoot
+          nodes={nodes}
+      >
+          {children}
+      </FormSsoRoot>
   )
 }
 

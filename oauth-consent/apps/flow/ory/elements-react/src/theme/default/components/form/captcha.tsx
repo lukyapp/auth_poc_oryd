@@ -1,6 +1,8 @@
 // Copyright © 2025 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { isUiNodeInputAttributes } from "@ory/client-fetch"
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile"
 import { useEffect, useRef } from "react"

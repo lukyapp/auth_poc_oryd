@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 "use client"
+
 import { getNodeLabel } from "@ory/client-fetch"
 import {
   messageTestId,

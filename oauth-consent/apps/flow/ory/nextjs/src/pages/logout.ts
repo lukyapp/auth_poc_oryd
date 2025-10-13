@@ -1,6 +1,8 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { LogoutFlow } from "@ory/client-fetch"
 import { clientSideFrontendClient } from "./client"
 import { useEffect, useState } from "react"

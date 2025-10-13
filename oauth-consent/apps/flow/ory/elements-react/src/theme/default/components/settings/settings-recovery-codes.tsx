@@ -1,6 +1,8 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { UiNodeInputAttributes } from "@ory/client-fetch"
 import { OrySettingsRecoveryCodesProps } from "@ory/elements-react"
 import Download from "../../assets/icons/download.svg"

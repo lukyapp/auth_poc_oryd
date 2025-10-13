@@ -174,6 +174,7 @@ async function logResponseError(
   printBody: boolean,
   wrap?: unknown[],
 ) {
+    console.log('LALA')
   console.error("Unable to decode API response", {
     response: {
       status: response.status,

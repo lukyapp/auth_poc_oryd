@@ -1,6 +1,6 @@
 import { OryClientConfiguration } from "@ory/elements-react";
 
-import pathConfig from "./path.config";
+import { pathConfig } from "./path.config";
 
 const path = pathConfig;
 export const config: OryClientConfiguration = {

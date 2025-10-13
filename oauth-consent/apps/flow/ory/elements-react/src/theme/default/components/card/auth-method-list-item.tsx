@@ -1,6 +1,8 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { UiContainer, UiNodeInputAttributes } from "@ory/client-fetch"
 import { OryCardAuthMethodListItemProps, useOryFlow } from "@ory/elements-react"
 import { useEffect, useState } from "react"

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { OryCardContentProps } from "@ory/elements-react"
+import {CardContent} from "@ui";
 
 /**
  * Simply renders the children passed to it.
@@ -12,5 +13,9 @@ import { OryCardContentProps } from "@ory/elements-react"
  * @category Default Components
  */
 export function DefaultCardContent({ children }: OryCardContentProps) {
-  return children
+  return (
+      <CardContent>
+          {children}
+      </CardContent>
+  )
 }

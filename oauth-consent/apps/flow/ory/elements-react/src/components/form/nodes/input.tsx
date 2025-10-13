@@ -1,6 +1,8 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { NodeProps } from "./node"
 import { useComponents } from "../../../context"
 import { triggerToWindowCall } from "../../../util/ui"

@@ -30,7 +30,7 @@ services:
     environment:
       POSTGRES_USER: ${HYDRA_POSTGRES_USER}
       POSTGRES_PASSWORD: ${HYDRA_POSTGRES_PASS}
-      POSTGRES_DB: ${HYDRA_DB}
+      POSTGRES_DB: ${HYDRA_POSTGRES_DATABASE}
     volumes:
       - ./hydra-postgres/data:/var/lib/postgresql/data
       - ./hydra-postgres/init:/docker-entrypoint-initdb.d:ro

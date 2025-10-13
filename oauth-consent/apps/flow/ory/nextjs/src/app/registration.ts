@@ -3,10 +3,11 @@
 import { FlowType, RegistrationFlow } from "@ory/client-fetch"
 
 import { initOverrides, QueryParams } from "../types"
-import { guessPotentiallyProxiedOrySdkUrl } from "../utils/sdk"
+import {orySdkUrl} from "../utils/sdk"
+
 import { serverSideFrontendClient } from "./client"
 import { getFlowFactory } from "./flow"
-import { getPublicUrl, toGetFlowParameter } from "./utils"
+import { toGetFlowParameter } from "./utils"
 
 /**
  * Use this method in an app router page to fetch an existing registration flow or to create a new one. This method works with server-side rendering.
@@ -56,9 +57,7 @@ export async function getRegistrationFlow(
         initOverrides,
       ),
     FlowType.Registration,
-    guessPotentiallyProxiedOrySdkUrl({
-      knownProxiedUrl: await getPublicUrl(),
-    }),
+    orySdkUrl(),
     config.project.registration_ui_url,
   )
 }

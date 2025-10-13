@@ -1,8 +1,10 @@
 // Copyright © 2025 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { createContext, PropsWithChildren, useContext, useRef } from "react"
-import { isProduction } from "../client/config"
+import {isProduction, orySdkUrl} from "../client/config"
 import { OryClientConfiguration } from "../util"
 import { frontendClient } from "../util/client"
 import {
@@ -150,7 +152,7 @@ function computeSdkConfig(config?: OryClientConfiguration["sdk"]): SDKConfig {
   }
 
   return {
-    url: getSDKUrl(),
+    url: orySdkUrl(),
     options: config?.options || {},
   }
 }

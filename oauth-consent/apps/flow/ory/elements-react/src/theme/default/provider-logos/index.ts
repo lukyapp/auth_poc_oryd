@@ -12,8 +12,8 @@ import linkedin from "./linkedin.svg"
 import microsoft from "./microsoft.svg"
 import slack from "./slack.svg"
 import spotify from "./spotify.svg"
-import yandex from "./yandex.svg"
 import x from "./x.svg"
+import yandex from "./yandex.svg"
 
 const logos: Record<string, typeof apple> = {
   apple,

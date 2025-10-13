@@ -1,10 +1,14 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { UiNode, UiNodeGroupEnum } from "@ory/client-fetch"
+"use client"
+
 import { PropsWithChildren } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { UiNode, UiNodeGroupEnum } from "@ory/client-fetch"
+
 import { useOryFlow } from "../../context"
+
 import { computeDefaultValues } from "./form-helpers"
 import { useOryFormResolver } from "./form-resolver"
 

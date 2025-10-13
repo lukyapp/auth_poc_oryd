@@ -1,6 +1,8 @@
 // Copyright © 2025 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { OryNodeConsentScopeCheckboxProps } from "@ory/elements-react"
 import IconPersonal from "../../assets/icons/personal.svg"
 import IconMessage from "../../assets/icons/message.svg"

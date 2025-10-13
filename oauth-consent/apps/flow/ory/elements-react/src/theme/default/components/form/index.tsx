@@ -1,8 +1,9 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { PropsWithChildren } from "react"
-import { cn } from "../../utils/cn"
 import { useIntl } from "react-intl"
 import {
   messageTestId,
@@ -11,7 +12,9 @@ import {
   useOryFlow,
 } from "@ory/elements-react"
 import { OryMessageContentProps } from "@ory/elements-react"
-import { FlowType } from "@ory/client-fetch"
+import {FormRoot, MessageRoot} from "@ui";
+
+import { cn } from "../../utils/cn"
 
 /**
  * The default form container for Ory Elements.
@@ -28,15 +31,13 @@ export function DefaultFormContainer({
   method,
 }: PropsWithChildren<OryFormRootProps>) {
   return (
-    <form
-      onSubmit={onSubmit}
-      noValidate
-      action={action}
-      method={method}
-      className={"grid gap-8"}
-    >
-      {children}
-    </form>
+      <FormRoot
+          onSubmit={onSubmit}
+          action={action}
+          method={method}
+      >
+          {children}
+      </FormRoot>
   )
 }
 
@@ -55,13 +56,9 @@ export function DefaultMessageContainer({ children }: PropsWithChildren) {
   }
 
   return (
-    <section
-      className={cn(
-        flowType === FlowType.Settings ? "text-center" : "text-left",
-      )}
-    >
-      {children}
-    </section>
+      <MessageRoot flowType={flowType}>
+          {children}
+      </MessageRoot>
   )
 }
 

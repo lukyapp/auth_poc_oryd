@@ -84,4 +84,7 @@ docker exec -it ory-hydra hydra create client \
   --grant-type authorization_code,refresh_token \
   --response-type code \
   --redirect-uri exp://192.168.1.116:8081/--/oauthredirect \
-  --scope openid,profile,email,offline
+  --scope openid,profile,email,offline \
+  --skip-consent \
+  --skip-logout-consent
+

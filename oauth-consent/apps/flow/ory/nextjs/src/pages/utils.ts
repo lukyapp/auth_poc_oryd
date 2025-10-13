@@ -1,9 +1,10 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { FlowType, OnRedirectHandler } from "@ory/client-fetch"
-import { guessPotentiallyProxiedOrySdkUrl } from "../utils/sdk"
 import { useRouter } from "next/router"
+import { FlowType, OnRedirectHandler } from "@ory/client-fetch"
+
+import {orySdkUrl} from "../utils/sdk"
 
 export function onValidationError<T>(value: T): T {
   return value
@@ -13,9 +14,7 @@ export const toBrowserEndpointRedirect = (
   params: URLSearchParams,
   flowType: FlowType,
 ) =>
-  guessPotentiallyProxiedOrySdkUrl({
-    knownProxiedUrl: window.location.origin,
-  }) +
+  orySdkUrl() +
   "/self-service/" +
   flowType.toString() +
   "/browser?" +

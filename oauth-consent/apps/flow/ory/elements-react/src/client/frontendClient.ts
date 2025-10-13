@@ -7,7 +7,8 @@ import {
   FrontendApi,
   OAuth2Api,
 } from "@ory/client-fetch"
-import { guessPotentiallyProxiedOrySdkUrl } from "./config"
+
+import {orySdkUrl} from "./config"
 
 export function frontendClient(
   {
@@ -17,11 +18,7 @@ export function frontendClient(
     credentials: "include",
   },
 ) {
-  const basePath =
-    forceBaseUrl ??
-    guessPotentiallyProxiedOrySdkUrl({
-      knownProxiedUrl: window.location.origin,
-    })
+  const basePath = forceBaseUrl ?? orySdkUrl()
 
   const config = new Configuration({
     ...opts,
@@ -43,11 +40,7 @@ export function oauth2Client(
     credentials: "include",
   },
 ) {
-  const basePath =
-    forceBaseUrl ??
-    guessPotentiallyProxiedOrySdkUrl({
-      knownProxiedUrl: window.location.origin,
-    })
+  const basePath = forceBaseUrl ?? orySdkUrl()
 
   const config = new Configuration({
     ...opts,

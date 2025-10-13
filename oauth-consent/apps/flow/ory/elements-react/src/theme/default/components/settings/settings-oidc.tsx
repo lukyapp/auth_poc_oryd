@@ -1,6 +1,8 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+"use client"
+
 import { UiNode, UiNodeInputAttributes } from "@ory/client-fetch"
 import { OrySettingsSsoProps } from "@ory/elements-react"
 import { useEffect } from "react"
@@ -54,7 +56,7 @@ type UnlinkRowProps = {
   button: UiNode & { onClick: () => void }
 }
 
-function UnlinkRow({ button }: UnlinkRowProps) {
+export function UnlinkRow({ button }: UnlinkRowProps) {
   // Safari cancels form submission events, if we do a state update in the same tick
   // so we delay the state update by 100ms
   const [clicked, setClicked] = useDebounceValue(false, 100)

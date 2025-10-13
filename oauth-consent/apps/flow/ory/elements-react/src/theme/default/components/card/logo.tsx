@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useOryConfiguration } from "@ory/elements-react"
+import {CardLogo} from "@ui";
 
 /**
  * The DefaultCardLogo component renders the logo from the {@link @ory/elements-react!OryProvider} or falls back to the project name.
@@ -15,19 +16,10 @@ import { useOryConfiguration } from "@ory/elements-react"
 export function DefaultCardLogo() {
   const config = useOryConfiguration()
 
-  if (config.project.logo_light_url) {
-    return (
-      <img
-        src={config.project.logo_light_url}
-        className="h-full max-h-9 self-start"
-        alt="Logo"
-      />
-    )
-  }
-
   return (
-    <h1 className="text-xl leading-normal font-semibold text-interface-foreground-default-primary">
-      {config.project.name}
-    </h1>
+      <CardLogo
+          name={config.project.name}
+          logo_light_url={config.project.logo_light_url}
+      />
   )
 }
