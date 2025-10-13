@@ -137,6 +137,8 @@
   "identities.messages.4070006": "Le code de vérification est invalide ou a déjà été utilisé. Veuillez réessayer.",
   "identities.messages.5000001": "{reason}",
   "login.forgot-password": "Mot de passe oublié ?",
+  "login.header.title": "Se connecter pour accéder à l'application",
+  "login.header.titleWithClientName": "Se connecter pour accéder à l'application {clientName}",
   "login.logged-in-as-label": "Vous êtes connecté en tant que :",
   "login.logout-button": "Déconnexion",
   "login.logout-label": "Quelque chose ne fonctionne pas ?",

@@ -157,6 +157,8 @@
   "login.cancel-button": "Cancel",
   "login.cancel-label": "Not the right account?",
   "login.forgot-password": "Forgot password?",
+  "login.header.title": "Sign in to access the application",
+  "login.header.titleWithClientName": "Sign in to access the {clientName} application",
   "login.logged-in-as-label": "You are using:",
   "login.logout-button": "Logout",
   "login.logout-label": "Something's not working?",

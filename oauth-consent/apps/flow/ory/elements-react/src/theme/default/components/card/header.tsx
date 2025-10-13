@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { messageTestId, useComponents, useOryFlow } from "@ory/elements-react"
+
 import { useCardHeaderText } from "../../utils/constructCardHeader"
+
 import { DefaultCurrentIdentifierButton } from "./current-identifier-button"
 
 function InnerCardHeader({

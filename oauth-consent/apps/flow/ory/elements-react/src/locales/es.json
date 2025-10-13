@@ -136,6 +136,8 @@
   "identities.messages.4070006": "El código de verificación es inválido o ya ha sido utilizado. Por favor, intente nuevamente.",
   "identities.messages.5000001": "{reason}",
   "login.forgot-password": "¿Olvidó su contraseña?",
+  "login.header.title": "Inicia sesión para acceder a la aplicación",
+  "login.header.titleWithClientName": "Inicia sesión para acceder a la aplicación {clientName}",
   "login.logged-in-as-label": "Ha iniciado sesión como:",
   "login.logout-button": "Cerrar sesión",
   "login.logout-label": "¿Algo no funciona correctamente?",

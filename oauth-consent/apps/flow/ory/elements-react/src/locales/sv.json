@@ -155,6 +155,8 @@
   "login.cancel-button": "Avbryt",
   "login.cancel-label": "Fel konto?",
   "login.forgot-password": "Glömt lösenord?",
+  "login.header.title": "Logga in för att få åtkomst till applikationen",
+  "login.header.titleWithClientName": "Logga in för att få åtkomst till {clientName}-applikationen",
   "login.logged-in-as-label": "Du är inloggad som:",
   "login.logout-button": "Logga ut",
   "login.logout-label": "Är det något som inte fungerar?",

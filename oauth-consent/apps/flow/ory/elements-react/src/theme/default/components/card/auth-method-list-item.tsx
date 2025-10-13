@@ -25,8 +25,6 @@ export function DefaultAuthMethodListItem({
   const { flow } = useOryFlow()
   const { formState } = useFormContext()
 
-    console.log('group: ', group)
-
   if (group === "passkey") {
     const passkeyNode = findPasskeyNode(flow)
     if (!passkeyNode) {

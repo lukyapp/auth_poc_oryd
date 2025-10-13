@@ -2,10 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { FlowType } from "@ory/client-fetch"
+import { OrySettingsCard, useOryFlow } from "@ory/elements-react"
+
 import { MethodActiveForm } from "./two-step/state-method-active"
 import { ProvideIdentifierForm } from "./two-step/state-provide-identifier"
 import { SelectMethodForm } from "./two-step/state-select-method"
-import { OrySettingsCard, useOryFlow } from "@ory/elements-react"
 
 /**
  * The `OrySelfServiceFlowCard` component is an umbrella component that can render the self-service flows.

@@ -137,6 +137,8 @@
   "identities.messages.4070006": "Der Verifizierungscode ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut.",
   "identities.messages.5000001": "{reason}",
   "login.forgot-password": "Passwort vergessen?",
+  "login.header.title": "Melden Sie sich an, um auf die Anwendung zuzugreifen",
+  "login.header.titleWithClientName": "Melden Sie sich an, um auf die {clientName}-Anwendung zuzugreifen",
   "login.logged-in-as-label": "Sie sind angemeldet als:",
   "login.logout-button": "Abmelden",
   "login.logout-label": "Etwas funktioniert nicht?",

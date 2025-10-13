@@ -137,6 +137,8 @@
   "identities.messages.4070006": "De verificatiecode is ongeldig of is al gebruikt. Probeer het opnieuw.",
   "identities.messages.5000001": "{reason}",
   "login.forgot-password": "Wachtwoord vergeten?",
+  "login.header.title": "Log in om toegang te krijgen tot de applicatie",
+  "login.header.titleWithClientName": "Log in om toegang te krijgen tot de {clientName}-applicatie",
   "login.logged-in-as-label": "Je bent ingelogd als:",
   "login.logout-button": "Uitloggen",
   "login.logout-label": "Er is iets mis?",

@@ -4,14 +4,15 @@
 "use client"
 
 import { createContext, PropsWithChildren, useContext, useRef } from "react"
-import {isProduction, orySdkUrl} from "../client/config"
-import { OryClientConfiguration } from "../util"
-import { frontendClient } from "../util/client"
 import {
   AccountExperienceConfiguration,
   ConfigurationParameters,
   FrontendApi,
 } from "@ory/client-fetch"
+
+import {isProduction, orySdkUrl} from "../client/config"
+import { OryClientConfiguration } from "../util"
+import { frontendClient } from "../util/client"
 
 /**
  * The Ory Elements configuration object.

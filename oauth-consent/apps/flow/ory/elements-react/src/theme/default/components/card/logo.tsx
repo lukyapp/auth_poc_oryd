@@ -1,7 +1,11 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { useOryConfiguration } from "@ory/elements-react"
+"use client"
+
+import {useIntl} from "react-intl";
+import {FlowType} from "@ory/client-fetch";
+import { useOryConfiguration, useOryFlow } from "@ory/elements-react"
 import {CardLogo} from "@ui";
 
 /**
@@ -14,11 +18,24 @@ import {CardLogo} from "@ui";
  * @see {@link @ory/elements-react!OryElementsConfiguration}
  */
 export function DefaultCardLogo() {
+  const intl = useIntl()
+
   const config = useOryConfiguration()
+  const context = useOryFlow()
+
+  let clientName: string | undefined
+  if (context.flowType === FlowType.Login) {
+      clientName = context.flow.oauth2_login_request?.client.client_name
+  }
+
 
   return (
       <CardLogo
-          name={config.project.name}
+          name={
+              intl.formatMessage({
+                  id: clientName ? "login.header.titleWithClientName" : "login.header.title",
+              }, { clientName })
+          }
           logo_light_url={config.project.logo_light_url}
       />
   )

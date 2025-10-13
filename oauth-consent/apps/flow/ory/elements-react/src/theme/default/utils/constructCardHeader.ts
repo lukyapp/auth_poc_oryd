@@ -3,16 +3,16 @@
 
 "use client"
 
+import { useIntl } from "react-intl"
 import {
   AuthenticatorAssuranceLevel,
   FlowType,
   isUiNodeInputAttributes,
   OAuth2ConsentRequest,
   Session,
-  UiContainer,
 } from "@ory/client-fetch"
-import { useIntl } from "react-intl"
-import { FormState } from "../../../context"
+
+import {FlowContextValue, FormState} from "../../../context"
 import { uiTextToFormattedMessage } from "../../../util"
 import { findNode } from "../../../util/ui"
 
@@ -72,12 +72,12 @@ export type CardHeaderTextOptions =
  * @returns a title and a description for the card header
  */
 export function useCardHeaderText(
-  container: UiContainer,
-  opts: CardHeaderTextOptions,
+  container: FlowContextValue['flow']['ui'],
+  context: FlowContextValue,
 ): { title: string; description: string; messageId?: string } {
   const nodes = container.nodes
   const intl = useIntl()
-  switch (opts.flowType) {
+  switch (context.flowType) {
     case FlowType.Recovery: {
       const recoveryV2Message = container.messages?.find((m) =>
         [1060006, 1060005, 1060004].includes(m.id),
@@ -175,7 +175,7 @@ export function useCardHeaderText(
   const parts = []
 
   if (nodes.find((node) => node.group === "password")) {
-    switch (opts.flowType) {
+    switch (context.flowType) {
       case FlowType.Registration:
         parts.push(
           intl.formatMessage(
@@ -268,7 +268,7 @@ export function useCardHeaderText(
     }
   }
 
-  switch (opts.flowType) {
+  switch (context.flowType) {
     case FlowType.Login: {
       const codeMethodNode = findNode(container.nodes, {
         node_type: "input",
@@ -278,9 +278,9 @@ export function useCardHeaderText(
       })
       const codeSent =
         codeMethodNode &&
-        opts.formState?.current === "method_active" &&
-        opts.formState?.method === "code"
-      if (opts.flow.refresh) {
+          context.formState?.current === "method_active" &&
+          context.formState?.method === "code"
+      if (context.flow.refresh) {
         return {
           title: intl.formatMessage({
             id: "login.title-refresh",
@@ -296,7 +296,7 @@ export function useCardHeaderText(
             },
           ),
         }
-      } else if (opts.flow.requested_aal === "aal2") {
+      } else if (context.flow.requested_aal === "aal2") {
         return {
           title: intl.formatMessage({
             id: "login.title-aal2",
@@ -304,8 +304,8 @@ export function useCardHeaderText(
           description: intl.formatMessage({
             id: codeSent
               ? "identities.messages.1010014"
-              : opts.formState?.current === "method_active"
-                ? `login.${opts.formState.method}.subtitle`
+              : context.formState?.current === "method_active"
+                ? `login.${context.formState.method}.subtitle`
                 : "login.subtitle-aal2",
           }),
         }
@@ -341,8 +341,8 @@ export function useCardHeaderText(
       })
       const codeSent =
         codeMethodNode &&
-        opts.formState?.current === "method_active" &&
-        opts.formState?.method === "code"
+          context.formState?.current === "method_active" &&
+          context.formState?.method === "code"
       return {
         title: intl.formatMessage({
           id: "registration.title",
@@ -371,7 +371,7 @@ export function useCardHeaderText(
             id: "consent.title",
           },
           {
-            party: opts.flow.consent_request.client?.client_name,
+            party: context.flow.consent_request.client?.client_name,
           },
         ),
         description: intl.formatMessage(
@@ -379,7 +379,7 @@ export function useCardHeaderText(
             id: "consent.subtitle",
           },
           {
-            identifier: (opts.flow.session.identity?.traits.email ??
+            identifier: (context.flow.session.identity?.traits.email ??
               "") as string,
           },
         ),
