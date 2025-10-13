@@ -3,17 +3,18 @@
 
 "use client"
 
-import { UiNode, UiNodeInputAttributes } from "@ory/client-fetch"
-import { OrySettingsSsoProps } from "@ory/elements-react"
 import { useEffect } from "react"
 import { useFormContext } from "react-hook-form"
+import {Icon} from "@icons";
+import { UiNode, UiNodeInputAttributes } from "@ory/client-fetch"
+import { OrySettingsSsoProps } from "@ory/elements-react"
 import { useDebounceValue } from "usehooks-ts"
-import Trash from "../../assets/icons/trash.svg"
-import logos from "../../provider-logos"
-import { DefaultHorizontalDivider } from "../form/horizontal-divider"
-import { DefaultButtonSocial, extractProvider, GenericLogo } from "../form/sso"
-import { Spinner } from "../form/spinner"
+
 import { omitInputAttributes } from "../../../../util/omitAttributes"
+import {getBrandLogo} from "../../provider-logos"
+import { DefaultHorizontalDivider } from "../form/horizontal-divider"
+import { Spinner } from "../form/spinner"
+import { DefaultButtonSocial, extractProvider, GenericLogo } from "../form/sso"
 
 export function DefaultSettingsOidc({
   linkButtons,
@@ -65,7 +66,9 @@ export function UnlinkRow({ button }: UnlinkRowProps) {
   } = useFormContext()
   const attrs = button.attributes as UiNodeInputAttributes
   const provider = extractProvider(button.meta.label?.context) ?? ""
-  const Logo = logos[(attrs.value as string).split("-")[0]]
+
+  const brandName = (attrs.value as string).split("-")[0]
+  const BrandLogo = getBrandLogo(brandName)
 
   const localOnClick = () => {
     button.onClick()
@@ -81,8 +84,8 @@ export function UnlinkRow({ button }: UnlinkRowProps) {
   return (
     <div key={attrs.value} className="flex justify-between">
       <div className="flex items-center gap-6">
-        {Logo ? (
-          <Logo size={32} />
+        {BrandLogo ? (
+          <BrandLogo size={32} />
         ) : (
           <GenericLogo label={provider.slice(0, 1)} />
         )}
@@ -101,9 +104,8 @@ export function UnlinkRow({ button }: UnlinkRowProps) {
         {clicked ? (
           <Spinner className="relative" />
         ) : (
-          <Trash
+          <Icon name='trash'
             className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
-            size={24}
           />
         )}
       </button>

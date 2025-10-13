@@ -3,19 +3,19 @@
 
 "use client"
 
+import { useRef, useState } from "react"
+import { useFormContext } from "react-hook-form"
+import { useIntl } from "react-intl"
+import {Icon} from "@icons";
 import { FlowType, getNodeLabel } from "@ory/client-fetch"
 import {
   OryNodeInputProps,
   uiTextToFormattedMessage,
   useOryFlow,
 } from "@ory/elements-react"
-import { useRef, useState } from "react"
-import { useFormContext } from "react-hook-form"
-import { useIntl } from "react-intl"
-import EyeOff from "../../assets/icons/eye-off.svg"
-import Eye from "../../assets/icons/eye.svg"
-import { cn } from "../../utils/cn"
+
 import { omitInputAttributes } from "../../../../util/omitAttributes"
+import { cn } from "../../utils/cn"
 
 export const defaultInputClassName = cn(
   "w-full rounded-forms border leading-tight antialiased transition-colors placeholder:h-[20px] placeholder:text-input-foreground-tertiary focus:ring-0 focus-visible:outline-hidden",
@@ -110,7 +110,7 @@ function PasswordToggle({
       type="button"
       aria-label="Toggle password visibility"
     >
-      {shown ? <EyeOff /> : <Eye />}
+      {shown ? <Icon name='eyeOff' /> : <Icon name='eye' />}
     </button>
   )
 }

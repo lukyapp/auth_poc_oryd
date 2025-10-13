@@ -3,13 +3,12 @@
 
 "use client"
 
+import { useFormContext } from "react-hook-form"
+import {Icon} from "@icons";
 import { UiNodeInputAttributes } from "@ory/client-fetch"
 import { OrySettingsRecoveryCodesProps } from "@ory/elements-react"
-import Download from "../../assets/icons/download.svg"
-import Eye from "../../assets/icons/eye.svg"
-import Refresh from "../../assets/icons/refresh.svg"
+
 import { DefaultHorizontalDivider } from "../form/horizontal-divider"
-import { useFormContext } from "react-hook-form"
 
 export function DefaultSettingsRecoveryCodes({
   codes,
@@ -51,8 +50,7 @@ export function DefaultSettingsRecoveryCodes({
               disabled={isSubmitting}
               data-loading={isSubmitting}
             >
-              <Refresh
-                size={24}
+              <Icon name='refresh'
                 className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
               />
             </button>
@@ -66,8 +64,7 @@ export function DefaultSettingsRecoveryCodes({
                 onClick={onReveal}
                 title="Reveal recovery codes"
               >
-                <Eye
-                  size={24}
+                <Icon name='eye'
                   className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
                 />
               </button>
@@ -81,8 +78,7 @@ export function DefaultSettingsRecoveryCodes({
               data-testid="ory/screen/settings/group/recovery_code/download"
               title="Download recovery codes"
             >
-              <Download
-                size={24}
+              <Icon name='download'
                 className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
               />
             </button>

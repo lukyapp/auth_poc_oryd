@@ -3,37 +3,18 @@
 
 "use client"
 
+import { useEffect, useState } from "react"
+import { useFormContext } from "react-hook-form"
+import { useIntl } from "react-intl"
+import {Icon} from "@icons";
 import { UiContainer, UiNodeInputAttributes } from "@ory/client-fetch"
 import { OryCardAuthMethodListItemProps, useOryFlow } from "@ory/elements-react"
-import { useEffect, useState } from "react"
-import { useIntl } from "react-intl"
 import { useEventListener, useTimeout } from "usehooks-ts"
-import { triggerToFunction } from "../../../../util/ui"
-import AlertIcon from "../../assets/icons/alert-triangle.svg"
-import lookup_secret from "../../assets/icons/code-asterix.svg"
-import code from "../../assets/icons/code.svg"
-import {
-  default as hardware_token,
-  default as passkey,
-} from "../../assets/icons/passkey.svg"
-import password from "../../assets/icons/password.svg"
-import totp from "../../assets/icons/totp.svg"
-import webauthn from "../../assets/icons/webauthn.svg"
-import logos from "../../provider-logos"
-import { isGroupImmediateSubmit } from "../../utils/form"
-import { ListItem } from "./list-item"
-import { useFormContext } from "react-hook-form"
 
-const iconsMap: Record<string, typeof code> = {
-  code,
-  passkey,
-  password,
-  webauthn,
-  hardware_token,
-  totp,
-  lookup_secret,
-  ...logos,
-}
+import { triggerToFunction } from "../../../../util/ui"
+import { isGroupImmediateSubmit } from "../../utils/form"
+
+import { ListItem } from "./list-item"
 
 export function DefaultAuthMethodListItem({
   onClick,
@@ -41,9 +22,10 @@ export function DefaultAuthMethodListItem({
   title,
 }: OryCardAuthMethodListItemProps) {
   const intl = useIntl()
-  const Icon = iconsMap[group] || null
   const { flow } = useOryFlow()
   const { formState } = useFormContext()
+
+    console.log('group: ', group)
 
   if (group === "passkey") {
     const passkeyNode = findPasskeyNode(flow)
@@ -63,7 +45,7 @@ export function DefaultAuthMethodListItem({
   return (
     <ListItem
       as="button"
-      icon={Icon}
+      iconName={group}
       title={intl.formatMessage(
         { id: title?.id ?? `two-step.${group}.title` },
         title?.values,
@@ -105,7 +87,6 @@ type PasskeyListItemProps = {
 
 function PasskeyListItem({ group, title, passkeyNode }: PasskeyListItemProps) {
   const intl = useIntl()
-  const Icon = iconsMap[group] || null
   const { formState } = useFormContext()
 
   const [isPasskeyScriptInitalized, setPasskeyScriptInitalized] =
@@ -149,7 +130,7 @@ function PasskeyListItem({ group, title, passkeyNode }: PasskeyListItemProps) {
     return (
       <ListItem
         as="button"
-        icon={Icon}
+        iconName='passkey'
         disabled={true}
         title={intl.formatMessage(
           { id: title?.id ?? `two-step.${group}.title` },
@@ -161,7 +142,7 @@ function PasskeyListItem({ group, title, passkeyNode }: PasskeyListItemProps) {
         type="button"
         data-testid={`ory/form/auth-picker/${group}`}
       >
-        <AlertIcon />
+        <Icon name='alert' />
       </ListItem>
     )
   }
@@ -169,7 +150,7 @@ function PasskeyListItem({ group, title, passkeyNode }: PasskeyListItemProps) {
   return (
     <ListItem
       as="button"
-      icon={Icon}
+      iconName='passkey'
       disabled={!isPasskeyScriptInitalized || !formState.isReady}
       name={passkeyNode.attributes.name}
       title={intl.formatMessage(

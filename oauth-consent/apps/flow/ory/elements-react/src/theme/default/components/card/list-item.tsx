@@ -2,18 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { PropsWithChildren } from "react"
-import { SVGIcon } from "../../assets/types"
+import {Icon, IconName} from "@icons";
+
+import {BrandLogoName, getBrandLogo} from "../../provider-logos";
 import { cn } from "../../utils/cn"
 
 type ListItemProps<T extends React.ElementType = "div"> = {
-  icon: SVGIcon
+  iconName: IconName | BrandLogoName
   as?: T
   title: string
   description: string
 }
 
 export function ListItem<T extends React.ElementType = "div">({
-  icon: Icon,
+                                                                  iconName,
   as,
   title,
   description,
@@ -22,6 +24,8 @@ export function ListItem<T extends React.ElementType = "div">({
   ...props
 }: PropsWithChildren<ListItemProps<T>> & React.ComponentPropsWithoutRef<T>) {
   const Comp = as || "div"
+
+  const BrandLogo = getBrandLogo(iconName)
 
   return (
     <Comp
@@ -33,9 +37,7 @@ export function ListItem<T extends React.ElementType = "div">({
       )}
     >
       <span className="mt-1">
-        {Icon && (
-          <Icon size={16} className="text-interface-foreground-brand-primary" />
-        )}
+        {BrandLogo ? (<BrandLogo size={16} className="text-interface-foreground-brand-primary" />) : (<Icon name={iconName as IconName} className="text-interface-foreground-brand-primary" />)}
       </span>
       <span className="inline-flex max-w-full min-w-1 flex-1 flex-col leading-normal">
         <span className="break-words text-interface-foreground-default-primary">

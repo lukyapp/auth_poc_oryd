@@ -3,11 +3,11 @@
 
 "use client"
 
+import { useFormContext } from "react-hook-form"
+import {Icon} from "@icons";
 import { UiNodeInputAttributes } from "@ory/client-fetch"
 import { OrySettingsWebauthnProps, useComponents } from "@ory/elements-react"
-import Key from "../../assets/icons/key.svg"
-import Trash from "../../assets/icons/trash.svg"
-import { useFormContext } from "react-hook-form"
+
 import { Spinner } from "../form/spinner"
 
 export function DefaultSettingsWebauthn({
@@ -64,8 +64,7 @@ export function DefaultSettingsWebauthn({
                   key={`webauthn-remove-button-${i}`}
                 >
                   <div className="flex flex-1 items-center gap-2 truncate">
-                    <Key
-                      size={32}
+                    <Icon name='key'
                       className="text-interface-foreground-default-primary"
                     />
                     <div className="flex flex-1 flex-col gap-4 truncate md:flex-row md:items-center md:justify-between">
@@ -96,9 +95,8 @@ export function DefaultSettingsWebauthn({
                     {isSubmitting ? (
                       <Spinner className="relative" />
                     ) : (
-                      <Trash
+                      <Icon name='trash'
                         className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
-                        size={24}
                       />
                     )}
                   </button>

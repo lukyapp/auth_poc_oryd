@@ -3,6 +3,9 @@
 
 "use client"
 
+import { useMemo } from "react"
+import { useFormContext } from "react-hook-form"
+import { useIntl } from "react-intl"
 import {
   FlowType,
   getNodeLabel,
@@ -18,10 +21,8 @@ import {
   useOryConfiguration,
   useOryFlow,
 } from "@ory/elements-react"
-import { useFormContext } from "react-hook-form"
-import { useIntl } from "react-intl"
+
 import { initFlowUrl } from "../../utils/url"
-import { useMemo } from "react"
 
 function findResendNode(nodes: UiNode[]) {
   return nodes.find(

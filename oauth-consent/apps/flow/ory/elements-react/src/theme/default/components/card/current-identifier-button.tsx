@@ -3,6 +3,9 @@
 
 "use client"
 
+import { useEffect, useState } from "react"
+import { useFormContext } from "react-hook-form"
+import {Icon} from "@icons";
 import {
   FlowType,
   isUiNodeInputAttributes,
@@ -10,11 +13,9 @@ import {
   UiNodeInputAttributes,
 } from "@ory/client-fetch"
 import { useOryConfiguration, useOryFlow } from "@ory/elements-react"
-import { useEffect, useState } from "react"
-import { useFormContext } from "react-hook-form"
+
 import { findScreenSelectionButton } from "../../../../util/nodes"
 import { omitInputAttributes } from "../../../../util/omitAttributes"
-import IconArrowLeft from "../../assets/icons/arrow-left.svg"
 import { restartFlowUrl } from "../../utils/url"
 
 /**
@@ -128,9 +129,7 @@ export function DefaultCurrentIdentifierButton() {
           data-testid={`ory/screen/${flowType}/action/restart`}
         >
           <span className="inline-flex min-h-5 items-center gap-2 overflow-hidden text-ellipsis">
-            <IconArrowLeft
-              size={16}
-              stroke="1"
+            <Icon name='arrowLeft'
               className="shrink-0 text-button-identifier-foreground-default group-hover:text-button-identifier-foreground-hover"
             />
             <span className="overflow-hidden text-sm font-medium text-nowrap text-ellipsis text-button-identifier-foreground-default group-hover:text-button-identifier-foreground-hover">
@@ -153,9 +152,7 @@ export function DefaultCurrentIdentifierButton() {
       data-testid={`ory/screen/${flowType}/action/restart`}
     >
       <span className="inline-flex min-h-5 items-center gap-2 overflow-hidden text-ellipsis">
-        <IconArrowLeft
-          size={16}
-          stroke="1"
+        <Icon name='arrowLeft'
           className="shrink-0 text-button-identifier-foreground-default group-hover:text-button-identifier-foreground-hover"
         />
         <span className="overflow-hidden text-sm font-medium text-nowrap text-ellipsis text-button-identifier-foreground-default group-hover:text-button-identifier-foreground-hover">

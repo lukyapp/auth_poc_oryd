@@ -3,16 +3,17 @@
 
 "use client"
 
+import { useIntl } from "react-intl"
+import {Icon} from "@icons";
 import {
   OryPageHeaderProps,
   useComponents,
   useOryConfiguration,
   useOryFlow,
 } from "@ory/elements-react"
-import { UserMenu } from "../ui/user-menu"
 import { useSession } from "@ory/elements-react/client"
-import { useIntl } from "react-intl"
-import ArrowLeft from "../../assets/icons/arrow-left.svg"
+
+import { UserMenu } from "../ui/user-menu"
 
 export const DefaultPageHeader = (_props: OryPageHeaderProps) => {
   const { Card } = useComponents()
@@ -40,7 +41,7 @@ export const DefaultPageHeader = (_props: OryPageHeaderProps) => {
               href={returnUrl}
               className="inline-flex items-center gap-2 text-button-link-default-primary hover:text-button-link-default-primary-hover"
             >
-              <ArrowLeft />{" "}
+              <Icon name='arrowLeft' />{" "}
               {intl.formatMessage({
                 id: "settings.navigation-back-button",
                 defaultMessage: "Back",

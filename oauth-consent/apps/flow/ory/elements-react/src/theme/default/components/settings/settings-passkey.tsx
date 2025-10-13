@@ -3,12 +3,12 @@
 
 "use client"
 
+import { useFormContext } from "react-hook-form"
+import {Icon} from "@icons";
 import { UiNodeInputAttributes } from "@ory/client-fetch"
 import { OrySettingsPasskeyProps, useComponents } from "@ory/elements-react"
-import Passkey from "../../assets/icons/passkey.svg"
-import Trash from "../../assets/icons/trash.svg"
+
 import { DefaultHorizontalDivider } from "../form/horizontal-divider"
-import { useFormContext } from "react-hook-form"
 import { Spinner } from "../form/spinner"
 
 export function DefaultSettingsPasskey({
@@ -54,8 +54,7 @@ export function DefaultSettingsPasskey({
                   key={`passkey-remove-button-${i}`}
                 >
                   <div className="flex flex-1 items-center gap-2 truncate">
-                    <Passkey
-                      size={32}
+                    <Icon name='passkey'
                       className="text-interface-foreground-default-primary"
                     />
                     <div className="flex flex-1 flex-col gap-4 truncate md:flex-row md:items-center md:justify-between">
@@ -86,9 +85,8 @@ export function DefaultSettingsPasskey({
                     {isSubmitting ? (
                       <Spinner className="relative" />
                     ) : (
-                      <Trash
+                      <Icon name='trash'
                         className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
-                        size={24}
                       />
                     )}
                   </button>

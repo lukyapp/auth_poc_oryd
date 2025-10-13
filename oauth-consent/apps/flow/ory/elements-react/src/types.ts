@@ -15,6 +15,7 @@ import {
   PropsWithChildren,
 } from "react"
 import { ButtonVariants } from "./theme/default/components/form/button"
+import {BrandLogoName} from "./theme/default/provider-logos";
 
 export type OryNodeButtonProps = {
   attributes: UiNodeInputAttributes
@@ -48,13 +49,15 @@ export type OryNodeCaptchaProps = {
  */
 export type OryFormGroupProps = PropsWithChildren
 
+type GroupName = BrandLogoName | 'code' | 'passkey' | 'password' | 'webauthn' | 'hardware_token' | 'totp' | 'lookup_secret'
+
 /**
  * Props for the AuthMethodListItem component. This component is used
  * to render a single auth method in the AuthMethodList component.
  */
 export type OryCardAuthMethodListItemProps = {
   onClick: () => void
-  group: string
+  group: GroupName
   title?: { id: string; values?: Record<string, string> }
 }
 

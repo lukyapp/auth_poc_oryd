@@ -1,6 +1,8 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+import {ElementType} from "react";
+
 import apple from "./apple.svg"
 import auth0 from "./auth0.svg"
 import discord from "./discord.svg"
@@ -15,7 +17,9 @@ import spotify from "./spotify.svg"
 import x from "./x.svg"
 import yandex from "./yandex.svg"
 
-const logos: Record<string, typeof apple> = {
+type BrandLogo = React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string }>
+
+export const brandLogos = {
   apple,
   auth0,
   discord,
@@ -29,5 +33,14 @@ const logos: Record<string, typeof apple> = {
   spotify,
   yandex,
   x,
+} as const satisfies Record<string, BrandLogo>
+
+export type BrandLogoName = keyof typeof brandLogos;
+
+const isBrandLogo = (value: string): value is BrandLogoName => {
+    return (Object.keys(brandLogos) as readonly string[]).includes(value);
+};
+
+export const getBrandLogo = (name: string, otherLogos: Record<string, ElementType> = {}) => {
+    return isBrandLogo(name) ? { ...brandLogos, ...otherLogos}[name] : null
 }
-export default logos

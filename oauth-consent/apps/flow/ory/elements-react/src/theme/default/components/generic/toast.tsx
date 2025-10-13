@@ -3,15 +3,16 @@
 
 "use client"
 
+import { useIntl } from "react-intl"
+import {Icon} from "@icons";
 import {
   messageTestId,
   OryToastProps,
   uiTextToFormattedMessage,
 } from "@ory/elements-react"
 import { toast as sonnerToast } from "sonner"
+
 import { cn } from "../../utils/cn"
-import { useIntl } from "react-intl"
-import IconX from "../../assets/icons/x.svg"
 
 export function DefaultToast({
   message,
@@ -49,7 +50,7 @@ export function DefaultToast({
           className="cursor-pointer text-interface-foreground-default-inverted"
           onClick={() => sonnerToast.dismiss(id)}
         >
-          <IconX size={16} />
+          <Icon name='x' />
         </button>
       </div>
 

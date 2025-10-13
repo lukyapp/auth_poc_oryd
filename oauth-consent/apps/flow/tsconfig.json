@@ -26,6 +26,9 @@
       "@ui": [
         "./libs/ui/src/index.ts"
       ],
+      "@icons": [
+        "./libs/icons/src/index.ts"
+      ],
       "@utils": [
         "./libs/utils/src/index.ts"
       ],

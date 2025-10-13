@@ -1,13 +1,14 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+import {Icon} from "@icons";
 import { LogoutFlow, Session } from "@ory/client-fetch"
 import { useOryConfiguration } from "@ory/elements-react"
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu"
-import IconLogout from "../../assets/icons/logout.svg"
-import IconSettings from "../../assets/icons/settings.svg"
+
 import { useClientLogout } from "../../utils/logout"
 import { getUserInitials } from "../../utils/user"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,12 +48,12 @@ export const UserMenu = ({ session }: UserMenuProps) => {
         </DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <a href={config.project.settings_ui_url}>
-            <IconSettings size={16} /> User settings
+              <Icon name='settings' /> User settings
           </a>
         </DropdownMenuItem>
         <DropdownMenuItem asChild disabled={!logoutFlow?.logout_url}>
           <a href={logoutFlow?.logout_url}>
-            <IconLogout size={16} /> Logout
+            <Icon name='logout' /> Logout
           </a>
         </DropdownMenuItem>
       </DropdownMenuContent>

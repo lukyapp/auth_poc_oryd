@@ -13,11 +13,11 @@ import {
   uiTextToFormattedMessage,
   useOryFlow,
 } from "@ory/elements-react"
+import {FormSsoRoot} from "@ui";
 import { useDebounceValue } from "usehooks-ts"
 
-import {FormSsoRoot} from "../../../../../../../libs/ui/src/Form/FormSsoRoot";
 import { omitInputAttributes } from "../../../../util/omitAttributes"
-import defaultLogos from "../../provider-logos"
+import {brandLogos, getBrandLogo} from "../../provider-logos"
 
 import { Spinner } from "./spinner"
 
@@ -71,7 +71,6 @@ export function DefaultButtonSocial({
   showLabel: _showLabel,
   logos: providedLogos,
 }: DefaultSocialButtonProps) {
-  const logos = { ...defaultLogos, ...providedLogos }
   const { type: _ignoredType, name: _ignoredName, ...rest } = attributes
   const {
     flow: { ui },
@@ -96,7 +95,9 @@ export function DefaultButtonSocial({
   // But changing that would be a breaking change.
   // So we have to extract the provider name from the id, which sometimes might contain a - followed by a unique ID.
   // TODO(kratos): Add provider to the context
-  const Logo = logos[(attributes.value as string).split("-")[0]]
+  const brandName = (attributes.value as string).split("-")[0]
+  const BrandLogo = getBrandLogo(brandName, providedLogos)
+
 
   const showLabel =
     _showLabel ?? (ssoNodeCount % 3 !== 0 && ssoNodeCount % 4 !== 0)
@@ -133,8 +134,8 @@ export function DefaultButtonSocial({
     >
       <span className="relative size-5">
         {!clicked ? (
-          Logo ? (
-            <Logo size={20} />
+            BrandLogo ? (
+            <BrandLogo size={20} />
           ) : (
             <GenericLogo label={provider.slice(0, 1)} />
           )

@@ -2,8 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ComponentPropsWithoutRef, forwardRef } from "react"
+import {Icon} from "@icons";
+
 import { UserInitials } from "../../utils/user"
-import IconUser from "../../assets/icons/user.svg"
 
 type UserAvatarProps = {
   initials: UserInitials
@@ -25,8 +26,8 @@ export const UserAvatar = forwardRef<HTMLButtonElement, UserAvatarProps>(
               className="w-full object-contain"
             />
           ) : (
-            <IconUser
-              size={24}
+            <Icon
+              name='user'
               className="text-button-primary-foreground-default"
             />
           )}

@@ -1,18 +1,20 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { NodeInput } from "./input"
+import { MouseEventHandler, ReactNode } from "react"
 import {
-  UiNode,
   isUiNodeAnchorAttributes,
   isUiNodeImageAttributes,
   isUiNodeInputAttributes,
   isUiNodeScriptAttributes,
   isUiNodeTextAttributes,
+  UiNode,
   UiNodeGroupEnum,
 } from "@ory/client-fetch"
-import { MouseEventHandler, ReactNode } from "react"
+
 import { useComponents } from "../../../context"
+
+import { NodeInput } from "./input"
 
 export type NodeProps = {
   node: UiNode

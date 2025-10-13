@@ -3,18 +3,18 @@
 
 "use client"
 
+import { useFormContext } from "react-hook-form"
+import {Icon} from "@icons";
 import {
   UiNodeImageAttributes,
   UiNodeInputAttributes,
   UiNodeTextAttributes,
 } from "@ory/client-fetch"
 import { OrySettingsTotpProps, useComponents } from "@ory/elements-react"
-import QrCode from "../../assets/icons/qrcode.svg"
-import Trash from "../../assets/icons/trash.svg"
+
 import { DefaultHorizontalDivider } from "../form/horizontal-divider"
-import { useFormContext } from "react-hook-form"
-import { Spinner } from "../form/spinner"
 import { defaultInputClassName } from "../form/input"
+import { Spinner } from "../form/spinner"
 
 export function DefaultSettingsTotp({
   totpImage,
@@ -43,7 +43,7 @@ export function DefaultSettingsTotp({
         </div>
         <div className="col-span-full flex items-center gap-6">
           <div className="aspect-square size-8">
-            <QrCode size={32} />
+            <Icon name='qrCode' />
           </div>
           <div className="mr-auto flex flex-col">
             <p className="text-sm font-medium text-interface-foreground-default-primary">
@@ -59,9 +59,8 @@ export function DefaultSettingsTotp({
             {isSubmitting ? (
               <Spinner className="relative" />
             ) : (
-              <Trash
+              <Icon name='trash'
                 className="text-button-link-default-secondary hover:text-button-link-default-secondary-hover"
-                size={24}
               />
             )}
           </button>

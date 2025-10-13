@@ -8,4 +8,5 @@ export * from './Card/CardSettingsSectionContent';
 export * from './Card/CardSettingsSectionFooter';
 export * from './Form/FormGroup';
 export * from './Form/FormRoot';
+export * from './Form/FormSsoRoot';
 export * from './Message/MessageRoot';
