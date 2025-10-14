@@ -1,20 +1,21 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+import { PropsWithChildren } from "react"
 import {
   FlowType,
   UiNode,
   UiNodeGroupEnum,
   UiTextTypeEnum,
 } from "@ory/client-fetch"
+import { renderHook } from "@testing-library/react"
+
+import { IntlProvider } from "../../../../context/intl-context"
+import { OryLocales } from "../../../../locales"
 import {
   CardHeaderTextOptions,
   useCardHeaderText,
 } from "../constructCardHeader"
-import { renderHook } from "@testing-library/react"
-import { PropsWithChildren } from "react"
-import { IntlProvider } from "../../../../context/intl-context"
-import { OryLocales } from "../../../../locales"
 
 console.error = jest.fn()
 

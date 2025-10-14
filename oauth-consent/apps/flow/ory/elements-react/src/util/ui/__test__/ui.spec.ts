@@ -1,23 +1,23 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import allMethodsInitialForm from "./.fixtures/initial-form.json"
-import omitHiddenInput from "./.fixtures/omit-hidden-input.json"
-
-import { useNodesGroups } from ".."
 import { UiNode, UiNodeTypeEnum } from "@ory/client-fetch"
+import { UiNodeGroupEnum } from "@ory/client-fetch"
+import { UiNodeInputAttributesTypeEnum } from "@ory/client-fetch"
 import { renderHook } from "@testing-library/react"
 
-import { UiNodeGroupEnum } from "@ory/client-fetch"
+import { useNodesGroups } from ".."
 import {
-  useFunctionalNodes,
-  isUiNodeGroupEnum,
   hasSingleSignOnNodes,
-  withoutSingleSignOnNodes,
   isNodeVisible,
+  isUiNodeGroupEnum,
+  useFunctionalNodes,
   useNodeGroupsWithVisibleNodes,
+  withoutSingleSignOnNodes,
 } from ".."
-import { UiNodeInputAttributesTypeEnum } from "@ory/client-fetch"
+
+import allMethodsInitialForm from "./.fixtures/initial-form.json"
+import omitHiddenInput from "./.fixtures/omit-hidden-input.json"
 
 describe("useFunctionalNodes", () => {
   test("returns only functional nodes", () => {

@@ -2,9 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { PropsWithChildren, useContext } from "react"
-import { IntlProvider as OriginalIntlProvider, IntlContext } from "react-intl"
+import { IntlContext,IntlProvider as OriginalIntlProvider } from "react-intl"
+
+import {ObjectKeys} from "@utils";
+
+import {LocaleMap, SupportedLocale} from "../locales"
 import { OryLocales } from ".."
-import { LocaleMap } from "../locales"
 
 // ISO 639-1 language codes
 // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
@@ -147,18 +150,20 @@ export const LanguageCodes = [
   "zu",
 ] as const
 
-export type Locale = keyof typeof OryLocales
-
 export type IntlContextProps = {
-  locale: Locale
+  locale: SupportedLocale
   customTranslations?: Partial<LocaleMap>
 }
 
+type Mutable<T> = {
+    -readonly [P in keyof T]: T[P];
+};
+
 function mergeTranslations(customTranslations: Partial<LocaleMap>) {
-  return Object.keys(customTranslations).reduce((acc, key) => {
+  return ObjectKeys(customTranslations).reduce((acc, key) => {
     acc[key] = { ...OryLocales[key], ...customTranslations[key] }
     return acc
-  }, OryLocales)
+  }, OryLocales as Mutable<LocaleMap>)
 }
 
 export const IntlProvider = ({

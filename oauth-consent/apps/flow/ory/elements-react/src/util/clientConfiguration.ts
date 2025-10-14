@@ -5,8 +5,8 @@ import {
   AccountExperienceConfiguration,
   ConfigurationParameters,
 } from "@ory/client-fetch"
-import { Locale } from "../context/intl-context"
-import { LocaleMap } from "../locales"
+
+import {LocaleMap, SupportedLocale} from "../locales"
 
 /**
  * The configuration for internationalization (i18n) in Ory Elements.
@@ -20,7 +20,7 @@ export type IntlConfig = {
    *
    * @defaultValue "en"
    */
-  locale: Locale
+  locale: SupportedLocale
   /**
    * Provide custom translations for the UI.
    */

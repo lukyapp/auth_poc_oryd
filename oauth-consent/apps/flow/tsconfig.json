@@ -44,6 +44,9 @@
       "@ory/elements-react": [
         "./ory/elements-react/src/index.ts"
       ],
+      "@ory/elements-react/locales": [
+        "./ory/elements-react/src/locales/index.ts"
+      ],
       "@ory/elements-react/theme": [
         "./ory/elements-react/src/theme/default/index.ts"
       ],

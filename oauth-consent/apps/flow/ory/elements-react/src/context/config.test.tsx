@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { render, renderHook } from "@testing-library/react"
+
 import { OryConfigurationProvider, useOryConfiguration } from "./config"
 
 describe("test config provider", () => {

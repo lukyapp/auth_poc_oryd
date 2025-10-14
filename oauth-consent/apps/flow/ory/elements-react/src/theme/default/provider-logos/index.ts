@@ -3,6 +3,8 @@
 
 import {ElementType} from "react";
 
+import {ObjectKeys} from "@utils";
+
 import apple from "./apple.svg"
 import auth0 from "./auth0.svg"
 import discord from "./discord.svg"
@@ -38,7 +40,7 @@ export const brandLogos = {
 export type BrandLogoName = keyof typeof brandLogos;
 
 const isBrandLogo = (value: string): value is BrandLogoName => {
-    return (Object.keys(brandLogos) as readonly string[]).includes(value);
+    return (ObjectKeys(brandLogos) as readonly string[]).includes(value);
 };
 
 export const getBrandLogo = (name: string, otherLogos: Record<string, ElementType> = {}) => {

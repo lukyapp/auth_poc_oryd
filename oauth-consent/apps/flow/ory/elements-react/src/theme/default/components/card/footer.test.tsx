@@ -1,8 +1,8 @@
 // Copyright © 2025 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { render, screen } from "@testing-library/react"
-import { DefaultCardFooter } from "./footer"
+import React from "react"
+import { IntlProvider } from "react-intl"
 import {
   AuthenticatorAssuranceLevel,
   FlowType,
@@ -12,18 +12,20 @@ import {
   UiNodeGroupEnum,
 } from "@ory/client-fetch"
 import * as oryFlow from "@ory/elements-react"
-import * as logout from "../../utils/logout"
-import { IntlProvider } from "react-intl"
-import * as uiUtils from "../../../../util/ui"
-import enMessages from "../../../../locales/en.json"
-import React from "react"
 import {
   FlowContextValue,
   FormState,
   FormStateMethodActive,
   FormStateProvideIdentifier,
 } from "@ory/elements-react"
+import { render, screen } from "@testing-library/react"
+
+import enMessages from "../../../../locales/en.json"
 import { defaultConfiguration } from "../../../../tests/jest/test-utils"
+import * as uiUtils from "../../../../util/ui"
+import * as logout from "../../utils/logout"
+
+import { DefaultCardFooter } from "./footer"
 
 // Define interfaces for our mock options and returns
 interface MockOptions {

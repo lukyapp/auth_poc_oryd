@@ -1,8 +1,9 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { render } from "@testing-library/react"
 import { IntlProvider as OriginalIntlProvider, useIntl } from "react-intl"
+import { render } from "@testing-library/react"
+
 import { IntlProvider } from "./intl-context"
 
 function Render({ messageId }: { messageId: string }) {

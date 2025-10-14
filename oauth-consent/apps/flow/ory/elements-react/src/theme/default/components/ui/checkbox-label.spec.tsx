@@ -1,10 +1,11 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { render } from "@testing-library/react"
-import { CheckboxLabel } from "./checkbox-label"
-import { IntlProvider } from "react-intl"
 import { PropsWithChildren } from "react"
+import { IntlProvider } from "react-intl"
+import { render } from "@testing-library/react"
+
+import { CheckboxLabel } from "./checkbox-label"
 
 const wrapper = ({ children }: PropsWithChildren) => (
   <IntlProvider locale="en">{children}</IntlProvider>

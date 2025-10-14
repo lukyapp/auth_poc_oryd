@@ -2,11 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 "use client"
-import { PropsWithChildren } from "react"
+
+import {PropsWithChildren} from "react"
+
+import {useBrowserLocale} from "@utils";
 
 import { OryFlowComponents } from "../components"
 import { OryClientConfiguration } from "../util"
 import { OryFlowContainer } from "../util/flowContainer"
+
 import { OryComponentProvider } from "./component"
 import { OryConfigurationProvider } from "./config"
 import { OryFlowProvider } from "./flow-context"
@@ -77,10 +81,13 @@ export function OryProvider({
   config,
   ...oryFlowProps
 }: OryProviderProps) {
+
+  const { locale } = useBrowserLocale()
+
   return (
     <OryConfigurationProvider sdk={config.sdk} project={config.project}>
       <IntlProvider
-        locale={config.intl?.locale ?? "en"}
+        locale={locale}
         customTranslations={config.intl?.customTranslations}
       >
         <OryFlowProvider {...oryFlowProps}>

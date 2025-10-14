@@ -1,8 +1,9 @@
 // Copyright © 2024 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { render, RenderOptions } from "@testing-library/react"
 import { ComponentProps, PropsWithChildren, ReactElement } from "react"
+import { render, RenderOptions } from "@testing-library/react"
+
 import { OryFlowComponentOverrides } from "../../components"
 import { OryComponentProvider } from "../../context/component"
 import { getOryComponents } from "../../theme/default"
